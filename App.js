@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 
 
 import Navigation from './navigation/Navigation';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View, StatusBar } from 'react-native';
 
 import rootReducer from './reducers'
 
@@ -15,9 +15,14 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-      <View style={styles.container}>
-        <Navigation/>
-      </View>
+        <View style={styles.container}>
+          <StatusBar
+            translucent={true}
+            backgroundColor="transparent"
+            barStyle="light-content"
+            />
+          <Navigation/>
+        </View>
       </Provider>
     );
   }

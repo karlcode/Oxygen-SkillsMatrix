@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Alert, FlatList, Platform, StatusBar } from 'react-native';
-
+import SearchContainer from '../containers/SearchContainer';
 export default class Search extends React.Component {
 
   render() {
     return (
       <View style={styles.container}>
-      <Text>Search</Text>
+      <SearchContainer />
       </View>
     );
   }
@@ -15,7 +15,6 @@ export default class Search extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     backgroundColor: 'white'
   },
   item: {
