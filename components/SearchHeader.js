@@ -1,13 +1,26 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Alert, FlatList, Platform, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, Image, Alert, FlatList, Platform, StatusBar, Button } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import Collapsible from 'react-native-collapsible';
+import SearchForm from './SearchForm';
 export default class SearchHeader extends React.PureComponent { 
+  constructor(props){
+    super(props);
+
+    this.state = {
+      isCollapsed: true
+    };
+  }
   render(){
       return(
         <View style={styles.container}>
-        <Ionicons name={'md-more'} size={20} style={{ alignSelf: 'flex-end'}} color='transparent'/>
-        <Text style={ styles.title}>Search</Text>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={ styles.title}>Search</Text>
+          <Ionicons name={'md-switch'} size={20} style={{ alignSelf: 'center'}} color='white' onPress={()=> this.setState({isCollapsed: !this.state.isCollapsed})}/>
+        </View>
+        <Collapsible collapsed={this.state.isCollapsed}>
+        <SearchForm/>
+        </Collapsible>
         </View>
     );
   }
@@ -18,11 +31,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#2D3037',
     padding: 20,
     paddingTop: (Platform.OS === 'ios' ? 20 :  StatusBar.currentHeight),
-    borderBottomRightRadius: 100
   },
   title: {
     color: 'white',
-    fontSize: 30
+    fontSize: 30,
+    flex: 1
   },
 
 });

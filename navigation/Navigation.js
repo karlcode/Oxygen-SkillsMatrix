@@ -23,7 +23,7 @@ const Navigation = TabNavigator(
         const { routeName } = navigation.state;
         let iconName;
         if (routeName === 'Home') {
-          iconName = `ios-search${focused ? '' : '-outline'}`;
+          iconName = `ios-search`;
         } else if (routeName === 'Profile') {
           iconName = `md-person`;
         } else if (routeName === 'Favourites') {
