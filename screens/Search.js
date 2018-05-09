@@ -6,7 +6,7 @@ export default class Search extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-      <SearchContainer />
+      <SearchContainer navigation={this.props.navigation}/>
       </View>
     );
   }

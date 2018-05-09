@@ -4,20 +4,19 @@ import { Avatar } from 'react-native-elements'
 const width = Dimensions.get('window').width
 
 
-const ListRow = ({ item }) => {
+const ListRow = (props) => {
 	return(
-    <TouchableHighlight>
+    <TouchableOpacity onPress={() => props.navigation.navigate({key: 'Profile', routeName: 'Profile', params: ({...props.item})})}>
 		<View style={styles.tile}>
 			<Avatar
 				rounded
 				medium
-				title={item.key}
-				onPress={() => console.log("Works!")}
+				title={props.item.Name}
 				activeOpacity={0.7}
 			/>
-			<Text>{item.key}</Text>
+			<Text style={{fontWeight: 'bold'}} >{props.item.Name}</Text>
 		</View>
-    </TouchableHighlight>
+    </TouchableOpacity>
 	)
 }
 
@@ -27,15 +26,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: (width / 2) - 15,
     height: 150,
-    backgroundColor: 'blue',
+    backgroundColor: '#FFF',
     marginLeft: 10,
     marginTop: 10,
     marginBottom: 20,
-    elevation: 10,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    elevation: 3,
+    //borderTopLeftRadius: 20,
+    //borderTopRightRadius: 20,
+    //borderBottomLeftRadius: 20,
+    //borderBottomRightRadius: 20,
   },
 
 });

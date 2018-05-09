@@ -4,9 +4,10 @@ import { StyleSheet, Text, View, Image, Alert, FlatList, Platform, StatusBar } f
 export default class Profile extends React.Component {
 
   render() {
+    const { params } = this.props.navigation.state;
     return (
       <View style={styles.container}>
-      <Text>Profile</Text>
+      <Text>{params.Name}</Text>
       </View>
     );
   }
@@ -16,7 +17,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'white'
+    alignItems:'center',
+    backgroundColor: '#FAFAFA'
   },
   item: {
     padding: 10,

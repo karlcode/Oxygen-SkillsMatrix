@@ -19,8 +19,8 @@ class SearchContainer extends React.Component {
   render(){
     return (
       <View style={styles.container}>
-        <SearchHeader/>
-        <SearchList />
+        <SearchHeader navigation={this.props.navigation}/>
+        <SearchList navigation={this.props.navigation}/>
       </View>
     );
   }
@@ -30,7 +30,7 @@ class SearchContainer extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
+    backgroundColor: "#FAFAFA"
   },
 
 });

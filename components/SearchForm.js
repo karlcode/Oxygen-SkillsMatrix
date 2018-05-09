@@ -1,8 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Alert, FlatList, Platform, StatusBar } from 'react-native';
 import { Button, ButtonGroup } from 'react-native-elements';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import LabelSelect from 'react-native-label-select';
 
 export default class SearchForm extends React.PureComponent { 
   constructor(props){
@@ -30,23 +28,6 @@ export default class SearchForm extends React.PureComponent {
                 buttons={buttons}
                 containerStyle={{height: 30}}
             />
-            <LabelSelect
-            ref="labelSelect"
-            title="Make Choices"
-            enable={true}
-            readOnly={false}
-            enableAddBtn={true}
-            style={yourStyle}
-            onConfirm={(list) => {...}}>
-
-            <LabelSelect.Label
-                key={...}
-                data={itemA}
-                onCancel={func}>selected ItemA</LabelSelect.Label>
-            <LabelSelect.ModalItem
-                key={...}
-                data={itemB}>Item B</LabelSelect.ModalItem>
-            </LabelSelect>
             <View style={{flexDirection: 'row'}}>
                 <View style={{flex: 1}}>
                 <Button

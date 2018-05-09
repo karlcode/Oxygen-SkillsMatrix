@@ -4,18 +4,19 @@ import Search from '../screens/Search';
 import Favourites from '../screens/Favourites';
 import { TabBarBottom, TabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import HomeNav from './HomeNav';
 
 const Navigation = TabNavigator(
   {
     Home: {
-      screen: Search,
+      screen: HomeNav,
     },
     Favourites: { 
       screen: Favourites,
     },
-    Profile: { 
-      screen: Profile,
-    },
+    //Profile: { 
+      //screen: Profile,
+    //},
   },
   {
     navigationOptions: ({ navigation }) => ({
