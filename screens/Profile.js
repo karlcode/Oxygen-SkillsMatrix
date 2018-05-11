@@ -1,28 +1,18 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image, Alert, FlatList, Platform, StatusBar } from 'react-native';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-export default class Profile extends React.Component {
+import contactData from '../mocks/contact.json'
 
-  render() {
-    const { params } = this.props.navigation.state;
-    return (
-      <View style={styles.container}>
-      <Text>{params.Name}</Text>
-      </View>
-    );
-  }
+import ProfileContainer from '../containers/ProfileContainer'
+
+const Profile = () => <ProfileContainer {...contactData} />
+
+Profile.navigationOptions = () => ({
+
+})
+
+Profile.propTypes = {
+  navigation: PropTypes.object.isRequired,
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems:'center',
-    backgroundColor: '#FAFAFA'
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-  },
-});
+export default Profile

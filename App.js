@@ -12,6 +12,7 @@ import rootReducer from './reducers'
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default class App extends React.Component {
+  
   render() {
     return (
       <Provider store={store}>

@@ -26,9 +26,8 @@ const styles = StyleSheet.create({
   title: {
     color: 'black',
     fontSize: 30,
+    fontWeight: 'bold',
     flex: 1, 
-    alignSelf: 'center',
-    justifyContent: 'center'
   },
 
 });

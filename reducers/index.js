@@ -25,35 +25,70 @@ let initialState = { data: [],
                         value: 4,
                         type: 'location'
                       }, {
-                        name: 'Auckland',
+                        name: 'Perth',
                         isSelected: false,
                         value: 5,
                         type: 'location'
+                      },{
+                        name: 'Hobart',
+                        isSelected: false,
+                        value: 6,
+                        type: 'location'
+                      },{
+                        name: 'Wellington',
+                        isSelected: false,
+                        value: 7,
+                        type: 'location'
+                      },{
+                        name: 'Christchurch',
+                        isSelected: false,
+                        value: 8,
+                        type: 'location'
+                      },{
+                        name: 'Auckland',
+                        isSelected: false,
+                        value: 9,
+                        type: 'location'
                       }],
                     skills: [{
-                        name: 'Javascript',
+                        name: '.Net',
                         isSelected: false,
                         value: 1,
                         type: 'skill'
                       }, {
-                        name: 'SAP',
+                        name: 'ABAP',
                         isSelected: false,
                         value: 2,
                         type: 'skill'
                       }, {
-                        name: 'Java',
+                        name: 'S/4 Hana Migration',
                         isSelected: false,
                         value: 3,
                         type: 'skill'
                       }, {
-                        name: 'ABAP',
+                        name: 'Microsoft Sharepoint',
                         isSelected: false,
                         value: 4,
                         type: 'skill'
                       }, {
-                        name: 'Marketing',
+                        name: 'IBM Websphere',
                         isSelected: false,
                         value: 5,
+                        type: 'skill'
+                      },{
+                        name: 'HANA Security',
+                        isSelected: false,
+                        value: 6,
+                        type: 'skill'
+                      },{
+                        name: 'SAP Mobile Platform',
+                        isSelected: false,
+                        value: 7,
+                        type: 'skill'
+                      },{
+                        name: 'Screen Personas',
+                        isSelected: false,
+                        value: 8,
                         type: 'skill'
                       }],
                 };  
@@ -110,6 +145,7 @@ const dataReducer = (state = initialState, action) => {
             }
         }
         case APPLY_FILTER: {
+            console.log("APPLY FILTER")
             //map selected items to the filter search function
         }
         default:

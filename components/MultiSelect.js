@@ -87,15 +87,14 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     alignItems: 'flex-start',
-    backgroundColor: 'white'
   },
   labelSelect: {
     marginTop: 5,
-    marginBottom: 20,
+    marginBottom: 10,
+    backgroundColor: 'white',
     padding: 5,
-    borderWidth: 1,
-    borderRadius: 2,
-    borderStyle: 'dashed',
-    borderColor: '#6dc2a2'
+    height: 50,
+    borderRadius: 5,
+    elevation: 1
   },
 });

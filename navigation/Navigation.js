@@ -2,6 +2,7 @@ import React from 'react';
 import Profile from '../screens/Profile';
 import Search from '../screens/Search';
 import Favourites from '../screens/Favourites';
+import User from '../screens/User';
 import { TabBarBottom, TabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeNav from './HomeNav';
@@ -14,9 +15,9 @@ const Navigation = TabNavigator(
     Favourites: { 
       screen: Favourites,
     },
-    //Profile: { 
-      //screen: Profile,
-    //},
+    User: { 
+      screen: User,
+    },
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -25,7 +26,7 @@ const Navigation = TabNavigator(
         let iconName;
         if (routeName === 'Home') {
           iconName = `ios-search`;
-        } else if (routeName === 'Profile') {
+        } else if (routeName === 'User') {
           iconName = `md-person`;
         } else if (routeName === 'Favourites') {
           iconName = `ios-star${focused ? '' : '-outline'}`;

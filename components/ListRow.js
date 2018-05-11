@@ -11,7 +11,8 @@ const ListRow = (props) => {
 			<Avatar
 				rounded
 				medium
-				title={props.item.Name}
+        title={props.item.Name.split(" ").map((n)=>n[0]).join(" ")}
+        titleStyle={{fontSize: 18}}
 				activeOpacity={0.7}
 			/>
 			<Text style={{fontWeight: 'bold'}} >{props.item.Name}</Text>
@@ -31,10 +32,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 20,
     elevation: 3,
-    //borderTopLeftRadius: 20,
-    //borderTopRightRadius: 20,
-    //borderBottomLeftRadius: 20,
-    //borderBottomRightRadius: 20,
+    borderTopLeftRadius: 1,
+    borderTopRightRadius: 1,
+    borderBottomLeftRadius: 1,
+    borderBottomRightRadius: 1,
   },
 
 });

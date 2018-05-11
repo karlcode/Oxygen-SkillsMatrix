@@ -38,17 +38,18 @@ const HomeNav = StackNavigator({
     navigationOptions: ({navigation}) => ({
         tabBarVisible: true, //godlike line
         //headerTintColor: 'white',
-        headerStyle:{backgroundColor: '#C9D8E7' },
+        headerTitleStyle: { textAlign: 'center', alignSelf: 'center', flex:1 },
         title: `Profile`,
+        headerRight: (<View />)
       }),
   },
   Filter: { 
     screen: Filter, 
     navigationOptions: ({navigation}) => ({
-      tabBarVisible: true, //godlike line
-      //headerTintColor: 'white',
-      headerStyle:{backgroundColor: '#C9D8E7' },
-      title: `Filter`,
+      tabBarVisible: false, //godlike line
+      headerTitleStyle: { textAlign: 'center', alignSelf: 'center', flex:1 },
+      title: 'Filter',
+      headerRight: (<View />)
     }),
   },
 },

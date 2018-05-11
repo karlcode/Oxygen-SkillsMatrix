@@ -20,7 +20,7 @@ class SearchContainer extends React.Component {
     return (
       <View style={styles.container}>
         <SearchHeader navigation={this.props.navigation}/>
-        <SearchList navigation={this.props.navigation}/>
+        <SearchList data={"placeholder"} navigation={this.props.navigation}/>
       </View>
     );
   }
