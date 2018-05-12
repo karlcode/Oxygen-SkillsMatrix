@@ -2,12 +2,22 @@ export const SEARCH_TERM = 'SEARCH_TERM';
 export const SELECT_CONFIRM = 'SELECT_CONFIRM';
 export const SELECT_DELETE = 'SELECT_DELETE';
 export const APPLY_FILTER = 'APPLY_FILTER';
-export const GET_DATA = 'GET_DATA';
+export const FETCHING_DATA = 'FETCHING_DATA';
+export const DATA_AVAILABLE = 'DATA_AVAILABLE';
 
 export function getData(){
-    //fetch and use redux thunk 
+    console.log("HGT")
     return (dispatch) => {
-        dispatch({type: GET_DATA});
+        dispatch({type: FETCHING_DATA});
+        fetch('https://api.myjson.com/bins/10glxq')
+        .then(res => res.json())
+        .then(json => {
+            dispatch({type: DATA_AVAILABLE, payload: json});
+            console.log("FETCHED THE DATA");
+        })
+        .catch(error => {
+            //dispatch error
+        })
     };
 }
 export function searchTerm(e){

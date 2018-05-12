@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
-import { SEARCH_TERM, SELECT_CONFIRM, SELECT_DELETE, APPLY_FILTER } from '../actions';
+import { FETCHING_DATA, DATA_AVAILABLE, SEARCH_TERM, SELECT_CONFIRM, SELECT_DELETE, APPLY_FILTER } from '../actions';
 
 let initialState = { data: [], 
                     filteredData: [], 
+                    users: [],
                     isFetching: true,
                     locations: [{
                         name: 'Sydney',
@@ -95,6 +96,14 @@ let initialState = { data: [],
 
 const dataReducer = (state = initialState, action) => {
     switch (action.type) {
+        case FETCHING_DATA:{
+            state = Object.assign({}, state);
+            return state;
+        }
+        case DATA_AVAILABLE:{
+            state = Object.assign({}, state, { users: action.payload.data, loading:false, refreshing: false })
+            return state;
+        }
         case SEARCH_TERM:{
             state = Object.assign({}, state, { data: action.data, loading:false, refreshing: false });
             return state;

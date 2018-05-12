@@ -12,15 +12,16 @@ class SearchContainer extends React.Component {
   constructor(props){
     super(props);
 
-    this.state = {
-
-    };
+  }
+  componentDidMount(){
+    this.props.getData()
   }
   render(){
+    const { users } = this.props;
     return (
       <View style={styles.container}>
         <SearchHeader navigation={this.props.navigation}/>
-        <SearchList data={"placeholder"} navigation={this.props.navigation}/>
+        {users ? <SearchList data={users} navigation={this.props.navigation}/> : null}
       </View>
     );
   }
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
 
 mapStateToProps = (state, props) => {
   return {
-    //loading: state.dataReducer.loading,
+    users: state.dataReducer.users,
   };
 };
 
