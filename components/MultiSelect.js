@@ -8,7 +8,7 @@ import {
   Text,
   Button,
   StyleSheet,
-  AppRegistry
+  AppRegistry,
 } from 'react-native';
 import LabelSelect from 'react-native-label-select';
 import { connect } from "react-redux";
