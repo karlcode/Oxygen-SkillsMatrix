@@ -4,7 +4,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ListRow from './ListRow';
 
 const SearchList = (props) => {
-  console.log(props.data)
   _renderItem = ({ item }) => {
     return <ListRow item={item} navigation={props.navigation}/>;
   }
@@ -18,7 +17,7 @@ const SearchList = (props) => {
       horizontal={false}
       numColumns={2}
       //extraData={this.state}
-      //keyExtractor={(item, index) => item.id}
+      keyExtractor={(item, index) => item.id}
       //ListEmptyComponent={this.noItemDisplay}
       //ItemSeparatorComponent={this.renderSeparator}
       //onRefresh={this.handleRefresh}

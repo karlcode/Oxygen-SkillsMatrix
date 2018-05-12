@@ -9,7 +9,7 @@ export function getData(){
     console.log("HGT")
     return (dispatch) => {
         dispatch({type: FETCHING_DATA});
-        fetch('https://api.myjson.com/bins/10glxq')
+        fetch('https://api.myjson.com/bins/1540xy')
         .then(res => res.json())
         .then(json => {
             dispatch({type: DATA_AVAILABLE, payload: json});

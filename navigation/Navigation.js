@@ -12,12 +12,13 @@ const Navigation = TabNavigator(
     Home: {
       screen: HomeNav,
     },
-    Favourites: { 
-      screen: Favourites,
-    },
+    //Favourites: { 
+      //screen: Favourites,
+    //},
     User: { 
       screen: User,
     },
+
   },
   {
     navigationOptions: ({ navigation }) => ({

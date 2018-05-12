@@ -5,20 +5,21 @@ const width = Dimensions.get('window').width
 
 
 const ListRow = (props) => {
-  const { name, position, team } = props.item
+  const { name, position, team, avatar } = props.item
 	return(
-    <TouchableOpacity onPress={() => props.navigation.navigate({key: 'Profile', routeName: 'Profile', params: ({...props.item})})}>
+    <TouchableOpacity onPress={() => props.navigation.navigate('Profile', {...props.item})}>
 		<View style={styles.tile}>
 			<Avatar
 				rounded
 				medium
         title={name.split(" ").map((n)=>n[0]).join(" ")}
         titleStyle={{fontSize: 18}}
-				activeOpacity={0.7}
+        activeOpacity={0.7}
+        source={{uri: avatar}}
 			/>
 			<Text style={{fontWeight: 'bold'}} >{name}</Text>
-			<Text >{position}</Text>
-			<Text >{team}</Text>
+			<Text>{position}</Text>
+			<Text>{team}</Text>
 		</View>
     </TouchableOpacity>
 	)

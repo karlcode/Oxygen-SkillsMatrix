@@ -5,7 +5,9 @@ import contactData from '../mocks/contact.json'
 
 import ProfileContainer from '../containers/ProfileContainer'
 
-const Profile = () => <ProfileContainer {...contactData} />
+const Profile = (props) => <ProfileContainer 
+{...props.navigation.state.params} />
+//const Profile = (props) => console.log(props.navigation.state.params)
 
 Profile.navigationOptions = () => ({
 
