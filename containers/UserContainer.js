@@ -199,6 +199,21 @@ class UserContainer extends Component {
             }
           />
           <ListItem
+            title="Citizenship"
+            rightTitle={citizenship}
+            onPress={() => this.onPressOptions()}
+            containerStyle={styles.listItemContainer}
+            leftIcon={
+              <Icon
+                containerStyle={{ backgroundColor: "#57DCE7" }}
+                icon={{
+                  type: "material",
+                  name: "language"
+                }}
+              />
+            }
+          />
+          <ListItem
             title="Contact Number"
             rightTitle={tels[0].number}
             onPress={() => this.onPressOptions()}
@@ -244,21 +259,7 @@ class UserContainer extends Component {
             }
           />
           
-          <ListItem
-            title="Citizenship"
-            rightTitle={citizenship}
-            onPress={() => this.onPressOptions()}
-            containerStyle={styles.listItemContainer}
-            leftIcon={
-              <Icon
-                containerStyle={{ backgroundColor: "#FEA8A1" }}
-                icon={{
-                  type: "material",
-                  name: "language"
-                }}
-              />
-            }
-          />
+          
         </List>
       </ScrollView>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Alert, FlatList, Platform, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, Image, Alert, FlatList, Platform, StatusBar, Button } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SearchHeader from '../components/SearchHeader';
 import SearchList from '../components/SearchList';
@@ -21,6 +21,7 @@ class SearchContainer extends React.Component {
     return (
       <View style={styles.container}>
         <SearchHeader navigation={this.props.navigation}/>
+        {this.props.showFilter ? <Button onPress={this.props.clearFilter} title="Clear filter"/> : null}
         {users ? <SearchList data={users} navigation={this.props.navigation}/> : null}
       </View>
     );
@@ -39,6 +40,7 @@ const styles = StyleSheet.create({
 
 mapStateToProps = (state, props) => {
   return {
+    showFilter: state.dataReducer.showFilter,
     users: state.dataReducer.users,
   };
 };

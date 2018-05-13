@@ -9,7 +9,7 @@ export default class Filter extends React.Component {
     
     return (
       <View style={styles.container}>
-        <FilterContainer />
+        <FilterContainer navigation={this.props.navigation}/>
       </View>
       
     );

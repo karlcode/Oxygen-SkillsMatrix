@@ -4,12 +4,13 @@ export const SELECT_DELETE = 'SELECT_DELETE';
 export const APPLY_FILTER = 'APPLY_FILTER';
 export const FETCHING_DATA = 'FETCHING_DATA';
 export const DATA_AVAILABLE = 'DATA_AVAILABLE';
+export const CLEAR_FILTER = 'CLEAR_FILTER';
 
 export function getData(){
     console.log("HGT")
     return (dispatch) => {
         dispatch({type: FETCHING_DATA});
-        fetch('https://api.myjson.com/bins/1540xy')
+        fetch('https://api.myjson.com/bins/1441f2')
         .then(res => res.json())
         .then(json => {
             dispatch({type: DATA_AVAILABLE, payload: json});
@@ -38,8 +39,13 @@ export function selectDelete(item){
         dispatch({type: SELECT_DELETE, item: item});
     };
 }
-export function applyFilter(){
+export function applyFilter(filters){
     return (dispatch) => {
-        dispatch({type: APPLY_FILTER});
+        dispatch({type: APPLY_FILTER, filters: filters});
+    };
+}
+export function clearFilter(){
+    return (dispatch) => {
+        dispatch({type: CLEAR_FILTER});
     };
 }

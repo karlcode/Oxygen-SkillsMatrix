@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import { FETCHING_DATA, DATA_AVAILABLE, SEARCH_TERM, SELECT_CONFIRM, SELECT_DELETE, APPLY_FILTER } from '../actions';
+import { FETCHING_DATA, DATA_AVAILABLE, SEARCH_TERM, SELECT_CONFIRM, SELECT_DELETE, APPLY_FILTER, CLEAR_FILTER } from '../actions';
 
 let initialState = { data: [], 
                     filteredData: [], 
-                    users: [],
+                    users: [], 
+                    backup: [],
                     isFetching: true,
+                    showFilter: false,
                     locations: [{
                         name: 'Sydney',
                         isSelected: false,
@@ -101,7 +103,7 @@ const dataReducer = (state = initialState, action) => {
             return state;
         }
         case DATA_AVAILABLE:{
-            state = Object.assign({}, state, { users: action.payload.data, loading:false, refreshing: false })
+            state = Object.assign({}, state, { users: action.payload.data, backup: action.payload.data, loading:false, refreshing: false })
             return state;
         }
         case SEARCH_TERM:{
@@ -153,9 +155,24 @@ const dataReducer = (state = initialState, action) => {
                  }
             }
         }
+        case CLEAR_FILTER: {
+          console.log("CLEARED")
+          console.log(state.backup)
+            state = Object.assign({}, state, { users: state.backup, showFilter: false })
+            return state;
+        }
         case APPLY_FILTER: {
-            console.log("APPLY FILTER")
-            //map selected items to the filter search function
+            console.log(action.filters)
+            let results = state.users.filter(el => 
+              action.filters.position != "All" && el.position.includes(action.filters.position) || 
+              action.filters.location != "All" && el.location.includes(action.filters.location) ||
+              action.filters.clearance != "All" && el.clearance.includes(action.filters.clearance) ||
+              action.filters.banding != "All" && el.banding.includes(action.filters.banding) ||
+              action.filters.citizenship != "All" && el.citizenship.includes(action.filters.citizenship) ||
+              action.filters.team != "All" && el.team.includes(action.filters.team)
+              )
+            state = Object.assign({}, state, { users: results, showFilter: true })
+            return state;
         }
         default:
             return state

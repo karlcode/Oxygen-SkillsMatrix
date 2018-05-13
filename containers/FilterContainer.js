@@ -26,12 +26,12 @@ class FilterContainer extends React.Component {
     super(props);
 
     this.state = {
-      location: "Sydney",
-      clearance: "Positive Vetting",
-      banding: "C1",
-      citizenship: "AU",
-      area: "All",
-      position: "Technical Consultant"
+      location: "All",
+      clearance: "All",
+      banding: "All",
+      citizenship: "All",
+      team: "All",
+      position: "All"
     };
   }
   render() {
@@ -61,17 +61,17 @@ class FilterContainer extends React.Component {
           <Text style={styles.title}>Business Area</Text>
           <View style={{backgroundColor: '#FFF'}}>
           <Picker
-            selectedValue={this.state.area}
+            selectedValue={this.state.team}
             style={{ height: 50, width: '100%', borderRadius: 5, elevation: 1}}
-            onValueChange={(itemValue, itemIndex) => this.setState({area: itemValue})}>
+            onValueChange={(itemValue, itemIndex) => this.setState({team: itemValue})}>
             <Picker.Item label="All" value="All" />
             <Picker.Item label="P&T" value="P&T" />
             <Picker.Item label="BI" value="BI" />
-            <Picker.Item label="Basis" value="js" />
-            <Picker.Item label="Business One" value="js" />
-            <Picker.Item label="Finance" value="js" />
-            <Picker.Item label="HR" value="js" />
-            <Picker.Item label="Supply Chain" value="js" />
+            <Picker.Item label="Basis" value="Basis" />
+            <Picker.Item label="Business One" value="Business One" />
+            <Picker.Item label="Finance" value="Finance" />
+            <Picker.Item label="HR" value="HR" />
+            <Picker.Item label="Supply Chain" value="Supply Chain" />
           </Picker>
           </View>
           
@@ -143,7 +143,8 @@ class FilterContainer extends React.Component {
         <View style={{ flexDirection: "row" }}>
           <View style={{ flex: 1 }}>
             <Button
-              onPress={this.props.applyFilter}
+              onPress={() => {this.props.applyFilter(this.state)
+                              this.props.navigation.goBack()}}
               title="Apply"
               titleStyle={{ fontWeight: "700" }}
               buttonStyle={{
