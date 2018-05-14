@@ -6,21 +6,30 @@ export const FETCHING_DATA = 'FETCHING_DATA';
 export const DATA_AVAILABLE = 'DATA_AVAILABLE';
 export const CLEAR_FILTER = 'CLEAR_FILTER';
 
+var base64 = require('base-64');
+
 export function getData(){
     console.log("HGT")
     return (dispatch) => {
         dispatch({type: FETCHING_DATA});
-        fetch('https://api.myjson.com/bins/1441f2')
+        //fetch('https://api.myjson.com/bins/1441f2')
+        let headers = new Headers();
+        headers.append("Authorization", "Basic " + base64.encode("oxygen:Welcome1"))
+        let url = 'https://iottruck.oxygendemo.com/sap/opu/odata/sap/ZSKILLS_MATRIX_SRV/EmployeeSet?$format=json&$expand=EmployeeSkillSet/Skill/SkillGroup,Team,Location,Position'
+        fetch(url, {
+            headers: headers,
+            method: 'GET'
+          })
         .then(res => res.json())
         .then(json => {
-            dispatch({type: DATA_AVAILABLE, payload: json});
-            console.log("FETCHED THE DATA");
+            dispatch({type: DATA_AVAILABLE, payload: json.d.results});
         })
         .catch(error => {
-            //dispatch error
+            ()=>alert(error)
         })
     };
 }
+
 export function searchTerm(e){
     console.log(e);
     return (dispatch) => {

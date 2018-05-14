@@ -88,25 +88,6 @@ class UserContainer extends Component {
         <InfoText text="Work" />
         <List containerStyle={styles.listContainer}>
           <ListItem
-            switchButton
-            hideChevron
-            title="Available for work"
-            switched={this.state.pushNotifications}
-            onSwitch={this.onChangePushNotifications}
-            containerStyle={styles.listItemContainer}
-            leftIcon={
-              <Icon
-                containerStyle={{
-                  backgroundColor: "#FFADF2"
-                }}
-                icon={{
-                  type: "material",
-                  name: "notifications"
-                }}
-              />
-            }
-          />
-          <ListItem
             title="Skills"
             onPress={() => this.onPressOptions()}
             containerStyle={styles.listItemContainer}

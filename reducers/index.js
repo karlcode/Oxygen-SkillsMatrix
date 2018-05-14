@@ -103,7 +103,7 @@ const dataReducer = (state = initialState, action) => {
             return state;
         }
         case DATA_AVAILABLE:{
-            state = Object.assign({}, state, { users: action.payload.data, backup: action.payload.data, loading:false, refreshing: false })
+            state = Object.assign({}, state, { users: action.payload, backup: action.payload, loading:false, refreshing: false })
             return state;
         }
         case SEARCH_TERM:{

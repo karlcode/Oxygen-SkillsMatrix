@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     width: 170,
   },
   userNameText: {
-    color: '#FFF',
+    color: '#000',
     fontSize: 22,
     fontWeight: 'bold',
     paddingBottom: 8,
@@ -95,10 +95,10 @@ const styles = StyleSheet.create({
 
 class ProfileContainer extends Component {
   static propTypes = {
-    avatar: PropTypes.string.isRequired,
-    avatarBackground: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    address: PropTypes.shape({
+    //avatar: PropTypes.string.isRequired,
+    //avatarBackground: PropTypes.string.isRequired,
+    FirstName: PropTypes.string.isRequired,
+    /*address: PropTypes.shape({
       city: PropTypes.string.isRequired,
       country: PropTypes.string.isRequired,
     }).isRequired,
@@ -115,42 +115,18 @@ class ProfileContainer extends Component {
         name: PropTypes.string.isRequired,
         number: PropTypes.string.isRequired,
       })
-    ).isRequired,
-  }
-
-  state = {
-    telDS: new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2,
-    }).cloneWithRows(this.props.tels),
-    emailDS: new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2,
-    }).cloneWithRows(this.props.emails),
-  }
-
-  onPressPlace = () => {
-    console.log('place')
-  }
-
-  onPressTel = number => {
-    Linking.openURL(`tel:${number}`).catch(err => console.log('Error:', err))
-  }
-
-  onPressSms = () => {
-    console.log('sms')
-  }
-
-  onPressEmail = email => {
-    Linking.openURL(`mailto:${email}?subject=subject&body=body`).catch(err =>
-      console.log('Error:', err)
-    )
+    ).isRequired,*/
   }
 
   renderHeader = () => {
     const {
-      avatar,
-      avatarBackground,
-      name,
-      address: { city, country },
+      FirstName,
+      LastName,
+      Position,
+      Phone,
+      Clearance,
+      Banding, 
+      Nationality
     } = this.props
 
     return (
@@ -159,17 +135,17 @@ class ProfileContainer extends Component {
           style={styles.headerBackgroundImage}
           blurRadius={10}
           source={{
-            uri: avatarBackground,
+            uri: 'https://orig00.deviantart.net/dcd7/f/2014/027/2/0/mountain_background_by_pukahuna-d73zlo5.png',
           }}
         >
           <View style={styles.headerColumn}>
             <Image
               style={styles.userImage}
-              source={{
-                uri: avatar,
-              }}
+              //source={{
+                //uri: avatar,
+              //}}
             />
-            <Text style={styles.userNameText}>{name}</Text>
+            <Text style={styles.userNameText}>{FirstName} {LastName}</Text>
             <View style={styles.userAddressRow}>
               <View>
                 <Icon
@@ -179,9 +155,39 @@ class ProfileContainer extends Component {
                   onPress={this.onPressPlace}
                 />
               </View>
+            </View>
+            <View style={styles.userAddressRow}>
               <View style={styles.userCityRow}>
                 <Text style={styles.userCityText}>
-                  {city}, {country}
+                   {Position.Name}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.userAddressRow}>
+              <View style={styles.userCityRow}>
+                <Text style={styles.userCityText}>
+                   {Phone}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.userAddressRow}>
+              <View style={styles.userCityRow}>
+                <Text style={styles.userCityText}>
+                   {Nationality}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.userAddressRow}>
+              <View style={styles.userCityRow}>
+                <Text style={styles.userCityText}>
+                   {Clearance}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.userAddressRow}>
+              <View style={styles.userCityRow}>
+                <Text style={styles.userCityText}>
+                   {Banding}
                 </Text>
               </View>
             </View>
@@ -191,52 +197,14 @@ class ProfileContainer extends Component {
     )
   }
 
-  renderTel = () => (
-    <ListView
-      contentContainerStyle={styles.telContainer}
-      dataSource={this.state.telDS}
-      renderRow={({ id, name, number }, _, k) => {
-        return (
-          <Tel
-            key={`tel-${id}`}
-            index={k}
-            name={name}
-            number={number}
-            onPressSms={this.onPressSms}
-            onPressTel={this.onPressTel}
-          />
-        )
-      }}
-    />
-  )
-
-  renderEmail = () => (
-    <ListView
-      contentContainerStyle={styles.emailContainer}
-      dataSource={this.state.emailDS}
-      renderRow={({ email, id, name }, _, k) => {
-        return (
-          <Email
-            key={`email-${id}`}
-            index={k}
-            name={name}
-            email={email}
-            onPressEmail={this.onPressEmail}
-          />
-        )
-      }}
-    />
-  )
-
   render() {
     return (
       <ScrollView style={styles.scroll}>
         <View style={styles.container}>
           <Card containerStyle={styles.cardContainer}>
             {this.renderHeader()}
-            {this.renderTel()}
             {Separator()}
-            {this.renderEmail()}
+            {Separator()}
           </Card>
         </View>
       </ScrollView>

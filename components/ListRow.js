@@ -1,14 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Dimensions, TouchableHighlight } from 'react-native';
-import { Avatar } from 'react-native-elements'
+import { Avatar, ListItem } from 'react-native-elements'
 const width = Dimensions.get('window').width
 
 
 const ListRow = (props) => {
-  const { name, position, team, avatar } = props.item
+  const { FirstName, LastName, Position, Team, avatar, Id } = props.item
 	return(
     <TouchableOpacity onPress={() => props.navigation.navigate('Profile', {...props.item})}>
-		<View style={styles.tile}>
+		{/*<View style={styles.tile}>
 			<Avatar
 				rounded
 				medium
@@ -20,7 +20,25 @@ const ListRow = (props) => {
 			<Text style={{fontWeight: 'bold'}} >{name}</Text>
 			<Text>{position}</Text>
 			<Text>{team}</Text>
-		</View>
+  </View>*/}
+  <View styles={{width: '100%'}}>
+    <ListItem
+        //onPress={() => navigate('SecondScreen', ({...item}))}
+        key={Id}
+        roundAvatar
+        //avatar={{ uri: avatar } }
+        title={`${FirstName + ' ' + LastName}`}
+        subtitle={Position.Name}
+        /*containerStyle={{ borderBottomWidth: 0, borderBottomLeftRadius: 10, borderTopRightRadius: 10, marginRight:15,
+          marginLeft:15,
+          marginTop:7,
+          marginBottom:7,
+          
+          elevation: 2,
+          backgroundColor:'rgb(255,255,255)', }}*/
+        containerStyle={{ backgroundColor: '#EFF4F9',borderBottomWidth: 0, marginLeft: 10, marginRight: 10, marginTop:5, marginBottom:5,  }}
+        />
+    </View>
     </TouchableOpacity>
 	)
 }
@@ -29,8 +47,6 @@ const styles = StyleSheet.create({
   tile: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: (width / 2) - 15,
-    height: 150,
     backgroundColor: '#FFF',
     marginLeft: 10,
     marginTop: 10,

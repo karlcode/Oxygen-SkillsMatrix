@@ -14,10 +14,8 @@ const SearchList = (props) => {
       //data={[{Name: 'Karl Li', key: 1}, {Name: 'Panha Vong', key: 2},{Name: 'William Wrigley', key: 3}, {Name: 'Kelly Sharma', key: 4},{Name: 'Tony Stark', key: 5}, {Name: 'Warren Vonghack', key: 6},{Name: 'Hulk', key: 7}, {Name: 'Captain America', key: 8}]}
       data={props.data}
       renderItem={this._renderItem}
-      horizontal={false}
-      numColumns={2}
       //extraData={this.state}
-      keyExtractor={(item, index) => item.id}
+      keyExtractor={(item, index) => item.Id}
       //ListEmptyComponent={this.noItemDisplay}
       //ItemSeparatorComponent={this.renderSeparator}
       //onRefresh={this.handleRefresh}

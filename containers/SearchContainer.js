@@ -20,7 +20,7 @@ class SearchContainer extends React.Component {
     const { users } = this.props;
     return (
       <View style={styles.container}>
-        <SearchHeader navigation={this.props.navigation}/>
+        {/*<SearchHeader data={users} navigation={this.props.navigation}/>*/}
         {this.props.showFilter ? <Button onPress={this.props.clearFilter} title="Clear filter"/> : null}
         {users ? <SearchList data={users} navigation={this.props.navigation}/> : null}
       </View>
