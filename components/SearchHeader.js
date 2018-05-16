@@ -23,7 +23,9 @@ export default class SearchHeader extends React.PureComponent {
       return(
         <View style={styles.container}>
         <View style={{flexDirection: 'row'}}>
-        <Text style={{flex: 1}}> Skills Matrix </Text> 
+        <Image style={{width: 50, height: 20}}
+          source={require('../assets/DXC_Oxygen.png')}
+        />
         <Ionicons name={'md-switch'} size={30} style={{ alignSelf: 'flex-end'}} color='#39AAEC' onPress={() => this.props.navigation.navigate({key: 'Filter', routeName: 'Filter'})}/>
         </View>
         <SearchBar
@@ -38,7 +40,6 @@ export default class SearchHeader extends React.PureComponent {
           containerStyle={styles.searchBar}
           icon={{ type: 'font-awesome', name: 'search' }}
           placeholder='Type Here...' />
-         
         </View>
     );
   }

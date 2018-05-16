@@ -1,35 +1,122 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image, Alert, FlatList, Platform, StatusBar } from 'react-native';
-import MultiSelect from '../components/MultiSelect';
-import { Button, ButtonGroup } from 'react-native-elements';
+import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Alert,
+  FlatList,
+  SectionList,
+  Platform,
+  StatusBar,
+  TouchableOpacity
+} from "react-native";
+import MultiSelect from "../components/MultiSelect";
+import OptionsContainer from "../containers/OptionsContainer";
+import { Button, ButtonGroup } from "react-native-elements";
+import { Select, Option } from 'react-native-select-lists';
+import { Avatar, ListItem } from 'react-native-elements'
+
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as Actions from "../actions";
 
 
-export default class Options extends React.Component {
+class Options extends React.Component {
+
+  notesData = Object.keys(this.props.skillgroups).map((key) => {
+    return { header: this.props.skillgroups[key].Name, data: this.props.skillgroups[key].SkillSet.results }
+  });
 
   render() {
-    
+    const { navigation } = this.props;
+    const { title } = this.props.navigation.state.params;
     return (
       <View style={styles.container}>
-        <Text>Optrions</Text>
+        <View style={styles.modal}>
+          <View style={{ flexDirection: "row" }}>
+            <View style={{ flex: 1, alignSelf: "center" }}>
+              <Text style={{fontWeight: 'bold', fontSize: 22}}>Edit {title}</Text>
+            </View>
+            <Button
+              title="Cancel"
+              color="#16c5cc"
+              buttonStyle={{
+                backgroundColor: "transparent"
+              }}
+              onPress={() => navigation.goBack()}
+            />
+          </View>
+          {title == "Skills" ? <SectionList
+                                  //data={this.props.skillgroups}
+                                  sections={this.notesData}
+                                  keyExtractor={(item, index) => item.Id}
+                                  renderItem={({item, index, section}) => 
+                                  /*<TouchableOpacity>
+                                  <ListItem
+                                  key={index}
+                                  title={item}
+                                  containerStyle={{ backgroundColor: '#fff',borderBottomWidth: 0, marginLeft: 10, marginRight: 10, marginTop:5, marginBottom:5,  }}
+                                  /></TouchableOpacity>*/
+                                  <Text>{item.Name}</Text>}
+                                  renderSectionHeader={({section}) => (
+                                    <Text style={{fontWeight: 'bold'}}>{section.header}</Text>
+                                  )}
+                                /> : <Text>other</Text>}
+        </View>
+
+        <View style={{ justifyContent: "flex-end" }}>
+          <Button
+            buttonStyle={{
+              backgroundColor: "#2B7D2B",
+              height: 60,
+              alignSelf: "stretch"
+            }}
+            containerViewStyle={{ width: "100%", marginLeft: 0 }}
+            title="Submit"
+            onPress={() => {
+              navigation.goBack();
+            }}
+          />
+        </View>
       </View>
-      
     );
   }
 }
 
+mapStateToProps = (state, props) => {
+  return {
+    skillgroups: state.dataReducer.skillgroups,
+    users: state.dataReducer.users,
+  };
+};
+
+mapDispatchToProps = dispatch => {
+  return bindActionCreators(Actions, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Options);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent:'center',
-    backgroundColor: '#F2F2F2',
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    paddingBottom: 6,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 6
   },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
+  modal: {
+    height: "60%",
+    width: "100%",
+    backgroundColor: "#EFF4F9",
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 6
   },
   title: {
-    color: 'white',
-    fontSize: 16,
-  },
+    color: "white",
+    fontSize: 16
+  }
 });

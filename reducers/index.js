@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import { FETCHING_DATA, DATA_AVAILABLE, SEARCH_TERM, SELECT_CONFIRM, SELECT_DELETE, APPLY_FILTER, CLEAR_FILTER } from '../actions';
+import { FETCHING_DATA, DATA_AVAILABLE, SKILLS_AVAILABLE, SEARCH_TERM, SELECT_CONFIRM, SELECT_DELETE, APPLY_FILTER, CLEAR_FILTER, CSRF_TOKEN } from '../actions';
 
-let initialState = { data: [], 
+let initialState = { data: [],
+                    skillgroups: [], 
                     filteredData: [], 
                     users: [], 
                     backup: [],
+                    token: '',
                     isFetching: true,
                     showFilter: false,
                     locations: [{
@@ -106,6 +108,11 @@ const dataReducer = (state = initialState, action) => {
             state = Object.assign({}, state, { users: action.payload, backup: action.payload, loading:false, refreshing: false })
             return state;
         }
+        case SKILLS_AVAILABLE:{
+          console.log(action.skills)
+          state = Object.assign({}, state, { skillgroups: action.skills })
+          return state;
+      }
         case SEARCH_TERM:{
             state = Object.assign({}, state, { data: action.data, loading:false, refreshing: false });
             return state;
@@ -173,6 +180,10 @@ const dataReducer = (state = initialState, action) => {
               )
             state = Object.assign({}, state, { users: results, showFilter: true })
             return state;
+        }
+        case CSRF_TOKEN: {
+          state = Object.assign({}, state, { token: action.token })
+          return state;
         }
         default:
             return state

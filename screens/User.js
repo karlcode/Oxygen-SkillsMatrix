@@ -7,8 +7,8 @@ import { View } from 'react-native';
 import UserContainer from '../containers/UserContainer'
 import SearchHeader from '../components/SearchHeader'
 
-const User = () => 
-<UserContainer {...contactData} 
+const User = (props) => 
+<UserContainer {...contactData} navigation={props.navigation}
 />
 
 User.navigationOptions = () => ({

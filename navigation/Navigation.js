@@ -6,6 +6,7 @@ import User from '../screens/User';
 import { TabBarBottom, TabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeNav from './HomeNav';
+import UserNav from './UserNav';
 
 const Navigation = TabNavigator(
   {
@@ -16,7 +17,7 @@ const Navigation = TabNavigator(
       //screen: Favourites,
     //},
     User: { 
-      screen: User,
+      screen: UserNav,
     },
 
   },

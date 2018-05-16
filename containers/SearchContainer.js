@@ -15,6 +15,7 @@ class SearchContainer extends React.Component {
   }
   componentDidMount(){
     this.props.getData()
+    this.props.getSkills()
   }
   render(){
     const { users } = this.props;

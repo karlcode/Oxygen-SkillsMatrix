@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 
 import Icon from "../components/Icon";
 import InfoText from "../components/InfoText";
-
+import ModalDropdown from 'react-native-modal-dropdown';
 
 class UserContainer extends Component {
   static propTypes = {
@@ -32,7 +32,7 @@ class UserContainer extends Component {
     isVisible: false
   };
 
-  onPressOptions = () => {
+  onPressOptions = (props) => {
     navigation.navigate("Options");
   };
 
@@ -56,9 +56,9 @@ class UserContainer extends Component {
       name,
       emails,
       username,
-      tels,
-      navigation
+      tels
     } = this.props;
+    const { navigate } = this.props.navigation;
     return (
       <ScrollView style={styles.scroll}>
          
@@ -89,7 +89,7 @@ class UserContainer extends Component {
         <List containerStyle={styles.listContainer}>
           <ListItem
             title="Skills"
-            onPress={() => this.onPressOptions()}
+            onPress={() => {navigate('Options', { title: 'Skills'} )}}
             containerStyle={styles.listItemContainer}
             leftIcon={
               <Icon
@@ -104,7 +104,7 @@ class UserContainer extends Component {
           <ListItem
             title="Team"
             rightTitle={team}
-            onPress={() => this.onPressOptions()}
+            onPress={() => {navigate('Options', { title: 'Team'} )}}
             containerStyle={styles.listItemContainer}
             leftIcon={
               <Icon
@@ -119,7 +119,7 @@ class UserContainer extends Component {
           <ListItem
             title="Position"
             rightTitle={position}
-            onPress={() => this.onPressOptions()}
+            onPress={() => {navigate('Options', { title: 'Position'} )}}
             containerStyle={styles.listItemContainer}
             leftIcon={
               <Icon
@@ -134,7 +134,7 @@ class UserContainer extends Component {
           <ListItem
             title="Clearance"
             rightTitle={clearance}
-            onPress={() => this.onPressOptions()}
+            onPress={() => {navigate('Options', { title: 'Clearance'} )}}
             containerStyle={styles.listItemContainer}
             leftIcon={
               <Icon
@@ -149,7 +149,7 @@ class UserContainer extends Component {
           <ListItem
             title="Banding"
             rightTitle={banding}
-            onPress={() => this.onPressOptions()}
+            onPress={() => {navigate('Options', { title: 'Banding'} )}}
             containerStyle={styles.listItemContainer}
             leftIcon={
               <Icon
@@ -167,7 +167,7 @@ class UserContainer extends Component {
           <ListItem
             title="Location"
             rightTitle="Sydney, Australia"
-            onPress={() => this.onPressOptions()}
+            onPress={() => {navigate('Options', { title: 'Location'} )}}
             containerStyle={styles.listItemContainer}
             leftIcon={
               <Icon
@@ -182,7 +182,7 @@ class UserContainer extends Component {
           <ListItem
             title="Citizenship"
             rightTitle={citizenship}
-            onPress={() => this.onPressOptions()}
+            onPress={() => {navigate('Options', { title: 'Citizenship'} )}}
             containerStyle={styles.listItemContainer}
             leftIcon={
               <Icon
@@ -197,7 +197,7 @@ class UserContainer extends Component {
           <ListItem
             title="Contact Number"
             rightTitle={tels[0].number}
-            onPress={() => this.onPressOptions()}
+            onPress={() => {navigate('Options', { title: 'Phone'} )}}
             containerStyle={styles.listItemContainer}
             leftIcon={
               <Icon
@@ -210,9 +210,9 @@ class UserContainer extends Component {
             }
           />
           <ListItem
-            title="Personal Email"
+            title="Email"
             rightTitle={emails[0].email}
-            onPress={() => this.onPressOptions()}
+            onPress={() => {navigate('Options', { title: 'Email'} )}}
             containerStyle={styles.listItemContainer}
             leftIcon={
               <Icon
@@ -224,21 +224,7 @@ class UserContainer extends Component {
               />
             }
           />
-          <ListItem
-            title="Work Email"
-            rightTitle={emails[1].email}
-            onPress={() => this.onPressOptions()}
-            containerStyle={styles.listItemContainer}
-            leftIcon={
-              <Icon
-                containerStyle={{ backgroundColor: "#57DCE7" }}
-                icon={{
-                  type: "material",
-                  name: "place"
-                }}
-              />
-            }
-          />
+        
           
           
         </List>
