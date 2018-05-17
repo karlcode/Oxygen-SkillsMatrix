@@ -7,8 +7,13 @@ import { View } from 'react-native';
 import UserContainer from '../containers/UserContainer'
 import SearchHeader from '../components/SearchHeader'
 
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as Actions from "../actions";
+
+
 const User = (props) => 
-<UserContainer {...contactData} navigation={props.navigation}
+<UserContainer {...props.profile} navigation={props.navigation}
 />
 
 User.navigationOptions = () => ({
@@ -19,4 +24,14 @@ User.propTypes = {
   //navigation: PropTypes.object.isRequired,
 }
 
-export default User
+mapStateToProps = (state, props) => {
+  return {
+    profile: state.dataReducer.profile,
+  };
+};
+
+mapDispatchToProps = dispatch => {
+  return bindActionCreators(Actions, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(User);

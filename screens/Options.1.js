@@ -34,8 +34,10 @@ class Options extends React.Component {
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
-  notesData = Object.keys(this.props.skillgroups).map((key) => {
-    return { header: this.props.skillgroups[key].Name, id: this.props.skillgroups[key].Id, data: this.props.skillgroups[key].SkillSet.results }
+  notesData = //Object.keys(this.props.skillgroups).map((key) => {
+    this.props.skillgroups.results.map((key) => {
+    //return { header: this.props.skillgroups[key].Name, id: this.props.skillgroups[key].Id, data: this.props.skillgroups[key].SkillSet.results }
+    return { header: key.Skill.SkillGroup.Name, id: key.Skill.SkillGroupId, data: key.Skill.SkillGroup.SkillSet.results}
   });
   _renderItem = ({item, index, section}) =>  {
     if(section.id == item.SkillGroupId){
@@ -114,7 +116,7 @@ class Options extends React.Component {
           {title == "Skills" ? <SectionList
                                   //data={this.props.skillgroups}
                                   sections={this.notesData}
-                                  keyExtractor={(item, index) => item.Id}
+                                  keyExtractor={(item, index) => index}
                                   renderItem={this._renderItem}
                                   renderSectionHeader={({section}) => (
                                     <Text style={{fontWeight: 'bold', marginTop:2.5, marginBottom:2.5, }}>{section.header}</Text>

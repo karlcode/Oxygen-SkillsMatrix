@@ -42,14 +42,14 @@ export function getSkills(){
         let headers = new Headers();
         headers.append("Authorization", "Basic " + base64.encode("oxygen:Welcome1"))
         headers.append("X-CSRF-Token", "fetch")
-        let url = 'https://iottruck.oxygendemo.com/sap/opu/odata/sap/ZSKILLS_MATRIX_SRV/SkillGroupSet?$format=json&$expand=SkillSet'
+        let url = 'https://iottruck.oxygendemo.com/sap/opu/odata/sap/ZSKILLS_MATRIX_SRV/EmployeeSet(\'3\')?$format=json&$expand=Team%2cPosition%2cLocation%2cEmployeeSkillSet%2cEmployeeSkillSet%2fSkillPriority%2cEmployeeSkillSet%2fSkill%2cEmployeeSkillSet%2fSkill%2fSkillGroup%2fSkillSet'
         fetch(url, {
             headers: headers,
             method: 'GET'
           })
         .then(res => res.json())
         .then(json => {
-            dispatch({type: SKILLS_AVAILABLE, skills: json.d.results});
+            dispatch({type: SKILLS_AVAILABLE, profile: json.d, skills: json.d.EmployeeSkillSet});
         })
         .catch(error => {
             alert("Error fetching skill groups " + error)

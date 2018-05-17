@@ -6,96 +6,11 @@ let initialState = { data: [],
                     filteredData: [], 
                     users: [], 
                     backup: [],
+                    profile: [],
                     token: '',
                     isFetching: true,
                     showFilter: false,
-                    locations: [{
-                        name: 'Sydney',
-                        isSelected: false,
-                        value: 1,
-                        type: 'location'
-                      }, {
-                        name: 'Melbourne',
-                        isSelected: false,
-                        value: 2,
-                        type: 'location'
-                      }, {
-                        name: 'Brisbane',
-                        isSelected: false,
-                        value: 3,
-                        type: 'location'
-                      }, {
-                        name: 'Adelaide',
-                        isSelected: false,
-                        value: 4,
-                        type: 'location'
-                      }, {
-                        name: 'Perth',
-                        isSelected: false,
-                        value: 5,
-                        type: 'location'
-                      },{
-                        name: 'Hobart',
-                        isSelected: false,
-                        value: 6,
-                        type: 'location'
-                      },{
-                        name: 'Wellington',
-                        isSelected: false,
-                        value: 7,
-                        type: 'location'
-                      },{
-                        name: 'Christchurch',
-                        isSelected: false,
-                        value: 8,
-                        type: 'location'
-                      },{
-                        name: 'Auckland',
-                        isSelected: false,
-                        value: 9,
-                        type: 'location'
-                      }],
-                    skills: [{
-                        name: '.Net',
-                        isSelected: false,
-                        value: 1,
-                        type: 'skill'
-                      }, {
-                        name: 'ABAP',
-                        isSelected: false,
-                        value: 2,
-                        type: 'skill'
-                      }, {
-                        name: 'S/4 Hana Migration',
-                        isSelected: false,
-                        value: 3,
-                        type: 'skill'
-                      }, {
-                        name: 'Microsoft Sharepoint',
-                        isSelected: false,
-                        value: 4,
-                        type: 'skill'
-                      }, {
-                        name: 'IBM Websphere',
-                        isSelected: false,
-                        value: 5,
-                        type: 'skill'
-                      },{
-                        name: 'HANA Security',
-                        isSelected: false,
-                        value: 6,
-                        type: 'skill'
-                      },{
-                        name: 'SAP Mobile Platform',
-                        isSelected: false,
-                        value: 7,
-                        type: 'skill'
-                      },{
-                        name: 'Screen Personas',
-                        isSelected: false,
-                        value: 8,
-                        type: 'skill'
-                      }],
+                    
                 };  
 
 const dataReducer = (state = initialState, action) => {
@@ -109,8 +24,7 @@ const dataReducer = (state = initialState, action) => {
             return state;
         }
         case SKILLS_AVAILABLE:{
-          console.log(action.skills)
-          state = Object.assign({}, state, { skillgroups: action.skills })
+          state = Object.assign({}, state, { profile: action.profile, skillgroups: action.skills })
           return state;
       }
         case SEARCH_TERM:{
