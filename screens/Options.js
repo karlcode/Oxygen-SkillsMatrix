@@ -14,50 +14,94 @@ import {
 import MultiSelect from "../components/MultiSelect";
 import OptionsContainer from "../containers/OptionsContainer";
 import { Button, ButtonGroup } from "react-native-elements";
-import { Select, Option } from 'react-native-select-lists';
-import { Avatar, ListItem, Slider } from 'react-native-elements'
+import { Select, Option } from "react-native-select-lists";
+import { Avatar, ListItem, Slider, Rating } from "react-native-elements";
 import Modal from "react-native-modal";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as Actions from "../actions";
 
-
 class Options extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       value: 6,
-      modalVisible: false,
-    }
+      modalVisible: false
+    };
   }
   setModalVisible(visible) {
-    this.setState({modalVisible: visible});
+    this.setState({ modalVisible: visible });
   }
-  notesData = Object.keys(this.props.skillgroups).map((key) => {
-    return { header: this.props.skillgroups[key].Name, id: this.props.skillgroups[key].Id, data: this.props.skillgroups[key].SkillSet.results }
+  notesData = this.props.skillgroups.map(key => {
+    return { header: key.Name, id: key.Id, data: key.SkillSet.results };
   });
-  _renderItem = ({item, index, section}) =>  {
-    if(section.id == item.SkillGroupId){
+  _renderItem = ({ item, index, section }) => {
+    if (section.id == item.SkillGroupId) {
       return (
-      <View>
-        <TouchableOpacity>
-          <ListItem
+        <View>
+          <TouchableOpacity>
+            <ListItem
               key={index}
               title={item.Name}
               onPress={() => {
                 this.setModalVisible(true);
               }}
-              containerStyle={{ backgroundColor: '#fff',borderBottomWidth: 0, marginLeft: 10, marginRight: 10, marginTop:2.5, marginBottom:2.5,  }}
-              />
-        </TouchableOpacity>
-        
-      </View>
-      )
+              containerStyle={{
+                backgroundColor: "#fff",
+                borderBottomWidth: 0,
+                marginLeft: 10,
+                marginRight: 10,
+                marginTop: 2.5,
+                marginBottom: 2.5
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+      );
     }
-    return null
-  }
-
+    return null;
+  };
+  mySwitchFunction = (param) => {
+    switch (param) {
+       case 'Skills':
+          return (<SectionList
+            //data={this.props.skillgroups}
+            sections={this.notesData}
+            keyExtractor={(item, index) => item.Id}
+            renderItem={this._renderItem}
+            renderSectionHeader={({ section }) => (
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  marginTop: 2.5,
+                  marginBottom: 2.5
+                }}
+              >
+                {section.header}
+              </Text>
+            )}
+          />);
+      case 'Team':
+            return null
+      case 'Position':
+            return null      
+      case 'Clearance':
+            return <Text>You do not have permission to edit this field</Text>         
+      case 'Banding':
+            return <Text>You do not have permission to edit this field</Text>          
+      case 'Location':
+            return null      
+      case 'Nationality':
+            return null      
+      case 'Contact Number':
+            return null      
+      case 'Email':
+            return <Text>You do not have permission to edit this field</Text>     
+      default: 
+            return <Text>No Data to display</Text>
+    }
+ }
   render() {
     const { navigation } = this.props;
     const { title } = this.props.navigation.state.params;
@@ -75,17 +119,34 @@ class Options extends React.Component {
           backdropTransitionInTiming={200}
           backdropTransitionOutTiming={200}
         >
-        <View style={styles.modalContent}>
-          <Text>Value: {this.state.value}</Text>
-          <View style={{flex: 1, alignItems: 'stretch', justifyContent: 'center'}}>
-            <Slider
-              value={this.state.value}
-              minimumValue={0}
-              maximumValue={10}
-              step={2}
-              onValueChange={(value) => this.setState({value})} />
-          </View>
-          <Button
+          <View style={styles.modalContent}>
+            <Text>Value: {this.state.value}</Text>
+            <View
+              style={{
+                flex: 1,
+                alignItems: "stretch",
+                justifyContent: "center"
+              }}
+            >
+              {/*<Slider
+                value={this.state.value}
+                minimumValue={0}
+                maximumValue={10}
+                step={2}
+                onValueChange={value => this.setState({ value })}
+              />*/}
+              <Rating
+                showRating
+                type="star"
+                fractions={1}
+                startingValue={3.6}
+                readonly
+                imageSize={40}
+                onFinishRating={()=>alert("Done")}
+                style={{ paddingVertical: 10 }}
+              />
+            </View>
+            <Button
               title="Cancel"
               color="#16c5cc"
               buttonStyle={{
@@ -95,12 +156,14 @@ class Options extends React.Component {
                 this.setModalVisible(false);
               }}
             />
-        </View>
+          </View>
         </Modal>
         <View style={styles.modal}>
           <View style={{ flexDirection: "row" }}>
             <View style={{ flex: 1, alignSelf: "center" }}>
-              <Text style={{fontWeight: 'bold', fontSize: 22}}>Edit {title}</Text>
+              <Text style={{ fontWeight: "bold", fontSize: 22 }}>
+                Edit {title}
+              </Text>
             </View>
             <Button
               title="Cancel"
@@ -111,18 +174,10 @@ class Options extends React.Component {
               onPress={() => navigation.goBack()}
             />
           </View>
-          {title == "Skills" ? <SectionList
-                                  //data={this.props.skillgroups}
-                                  sections={this.notesData}
-                                  keyExtractor={(item, index) => item.Id}
-                                  renderItem={this._renderItem}
-                                  renderSectionHeader={({section}) => (
-                                    <Text style={{fontWeight: 'bold', marginTop:2.5, marginBottom:2.5, }}>{section.header}</Text>
-                                  )}
-                                /> : <Text>other</Text>}
+          {this.mySwitchFunction(title)}
         </View>
 
-        <View style={{ justifyContent: "flex-end" }}>
+        {/*<View style={{ justifyContent: "flex-end" }}>
           <Button
             buttonStyle={{
               backgroundColor: "#2B7D2B",
@@ -135,7 +190,7 @@ class Options extends React.Component {
               navigation.goBack();
             }}
           />
-        </View>
+          </View>*/}
       </View>
     );
   }
@@ -143,7 +198,7 @@ class Options extends React.Component {
 
 mapStateToProps = (state, props) => {
   return {
-    skillgroups: state.dataReducer.skillgroups,
+    skillgroups: state.dataReducer.skillgroups
   };
 };
 
@@ -157,14 +212,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "flex-end",
+    justifyContent: "flex-end"
     //paddingBottom: 6,
     //paddingLeft: 15,
     //paddingRight: 15,
     //paddingTop: 6
   },
   modal: {
-    height: "60%",
+    height: "80%",
     width: "100%",
     backgroundColor: "#EFF4F9",
     paddingLeft: 15,

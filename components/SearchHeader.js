@@ -5,8 +5,13 @@ import PropTypes from 'prop-types';
 import SearchInput, { createFilter } from 'react-native-search-filter';
 import { SearchBar } from 'react-native-elements'
 
-const KEYS_TO_FILTERS = ['name'];
-export default class SearchHeader extends React.PureComponent { 
+
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as Actions from "../actions";
+
+
+class SearchHeader extends React.PureComponent { 
   constructor(props) {
     super(props);
     this.state = {
@@ -32,10 +37,10 @@ export default class SearchHeader extends React.PureComponent {
           lightTheme
           round
           onChangeText={e => {
-            //this.props.searchTerm(e);
+            this.props.searchTerm(e);
           }}
           onClearText={() => {
-            //this.props.clearSearch();
+            this.props.clearSearch();
           }}
           containerStyle={styles.searchBar}
           icon={{ type: 'font-awesome', name: 'search' }}
@@ -44,6 +49,17 @@ export default class SearchHeader extends React.PureComponent {
     );
   }
 }
+mapStateToProps = (state, props) => {
+  return {
+  };
+};
+
+mapDispatchToProps = dispatch => {
+  return bindActionCreators(Actions, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchHeader);
+
 const styles = StyleSheet.create({
   container: {
     elevation: 10,

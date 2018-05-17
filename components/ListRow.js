@@ -5,7 +5,7 @@ const width = Dimensions.get('window').width
 
 
 const ListRow = (props) => {
-  const { FirstName, LastName, Position, Team, avatar, Id } = props.item
+  const { FirstName, LastName, Position, Team, avatar, Id, Location  } = props.item
 	return(
     <TouchableOpacity onPress={() => props.navigation.navigate('Profile', {...props.item})}>
 		{/*<View style={styles.tile}>
@@ -27,8 +27,8 @@ const ListRow = (props) => {
         key={Id}
         roundAvatar
         //avatar={{ uri: avatar } }
-        title={`${FirstName + ' ' + LastName}`}
-        subtitle={Position.Name}
+        title={<Text><Text style={{fontSize: 18, fontWeight: 'bold'}}>{FirstName} {LastName}</Text> <Text style={{fontSize: 12}}>{Location.Code}</Text></Text>}
+        subtitle={<Text style={{fontSize: 12, fontWeight: 'bold', color: 'grey'}}>{Position.Name}</Text>}
         /*containerStyle={{ borderBottomWidth: 0, borderBottomLeftRadius: 10, borderTopRightRadius: 10, marginRight:15,
           marginLeft:15,
           marginTop:7,

@@ -3,32 +3,40 @@ import { StyleSheet, Text, View, Image, Alert, FlatList, Platform, StatusBar } f
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ListRow from './ListRow';
 
-const SearchList = (props) => {
-  _renderItem = ({ item }) => {
-    return <ListRow item={item} navigation={props.navigation}/>;
-  }
-  return (
-    <View style={styles.container}>
-    {props.data ? 
-      <FlatList
-      //data={[{Name: 'Karl Li', key: 1}, {Name: 'Panha Vong', key: 2},{Name: 'William Wrigley', key: 3}, {Name: 'Kelly Sharma', key: 4},{Name: 'Tony Stark', key: 5}, {Name: 'Warren Vonghack', key: 6},{Name: 'Hulk', key: 7}, {Name: 'Captain America', key: 8}]}
-      data={props.data}
-      renderItem={this._renderItem}
-      //extraData={this.state}
-      keyExtractor={(item, index) => item.Id}
-      //ListEmptyComponent={this.noItemDisplay}
-      //ItemSeparatorComponent={this.renderSeparator}
-      //onRefresh={this.handleRefresh}
-      removeClippedSubviews={false}
-      //refreshing={this.props.refreshing}
-      initialNumToRender={10}
-      maxToRenderPerBatch={10}
-    />: null }
-        
-    </View>
-  );
-}
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as Actions from "../actions";
 
+class SearchList extends React.Component {
+  constructor(props){
+    super(props)
+  }
+  _renderItem = ({ item }) => {
+    return <ListRow item={item} navigation={this.props.navigation}/>;
+  }
+  render(){
+    return (
+      <View style={styles.container}>
+      {this.props.users ? 
+        <FlatList
+        //data={[{Name: 'Karl Li', key: 1}, {Name: 'Panha Vong', key: 2},{Name: 'William Wrigley', key: 3}, {Name: 'Kelly Sharma', key: 4},{Name: 'Tony Stark', key: 5}, {Name: 'Warren Vonghack', key: 6},{Name: 'Hulk', key: 7}, {Name: 'Captain America', key: 8}]}
+        data={this.props.cleared ? this.props.users : this.props.filteredData}
+        renderItem={this._renderItem}
+        //extraData={this.state}
+        keyExtractor={(item, index) => item.Id}
+        //ListEmptyComponent={this.noItemDisplay}
+        //ItemSeparatorComponent={this.renderSeparator}
+        //onRefresh={this.handleRefresh}
+        removeClippedSubviews={false}
+        //refreshing={this.props.refreshing}
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
+      />: null }
+          
+      </View>
+    );
+  }
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1
@@ -40,4 +48,18 @@ const styles = StyleSheet.create({
 
 });
 
-export default SearchList;
+mapStateToProps = (state, props) => {
+  return {
+    ...props.navigation,
+    showFilter: state.dataReducer.showFilter,
+    users: state.dataReducer.users,
+    cleared: state.dataReducer.cleared,
+    filteredData: state.dataReducer.filteredData,
+  };
+};
+
+mapDispatchToProps = dispatch => {
+  return bindActionCreators(Actions, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchList);

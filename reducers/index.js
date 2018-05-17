@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
-import { FETCHING_DATA, DATA_AVAILABLE, SKILLS_AVAILABLE, SEARCH_TERM, SELECT_CONFIRM, SELECT_DELETE, APPLY_FILTER, CLEAR_FILTER, CSRF_TOKEN } from '../actions';
+import { FETCHING_DATA, DATA_AVAILABLE, SKILLS_AVAILABLE, PROFILE_AVAILABLE, SEARCH_TERM, CLEAR_SEARCH, SELECT_CONFIRM, SELECT_DELETE, APPLY_FILTER, CLEAR_FILTER, CSRF_TOKEN } from '../actions';
+
+import SearchInput, { createFilter } from 'react-native-search-filter'
 
 let initialState = { data: [],
                     skillgroups: [], 
@@ -8,6 +10,7 @@ let initialState = { data: [],
                     backup: [],
                     profile: [],
                     token: '',
+                    cleared: true,
                     isFetching: true,
                     showFilter: false,
                     
@@ -24,12 +27,21 @@ const dataReducer = (state = initialState, action) => {
             return state;
         }
         case SKILLS_AVAILABLE:{
-          state = Object.assign({}, state, { profile: action.profile, skillgroups: action.skills })
+          state = Object.assign({}, state, { skillgroups: action.skills })
           return state;
-      }
+        }
+        case PROFILE_AVAILABLE:{
+          state = Object.assign({}, state, { profile: action.profile })
+          return state;
+        }
         case SEARCH_TERM:{
-            state = Object.assign({}, state, { data: action.data, loading:false, refreshing: false });
+            const filtered = state.users.filter(createFilter(action.searchterm, ['FirstName', 'LastName', 'Phone', 'Nationality', 'Position.Name', 'Team.Name', 'Location.Description' ]))
+            state = Object.assign({}, state, { filteredData: filtered, cleared: false });
             return state;
+        }
+        case CLEAR_SEARCH:{
+          state = Object.assign({}, state, { cleared: true });
+          return state;
         }
         case SELECT_CONFIRM:{
             if(action.list[0].type == 'location'){

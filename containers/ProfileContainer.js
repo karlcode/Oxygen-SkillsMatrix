@@ -120,13 +120,17 @@ class ProfileContainer extends Component {
 
   renderHeader = () => {
     const {
+      Clearance,
+      Email,
       FirstName,
       LastName,
-      Position,
       Phone,
-      Clearance,
-      Banding, 
-      Nationality
+      Nationality,
+      Security,
+      Location,
+      Position,
+      Team,
+      Banding
     } = this.props
 
     return (
@@ -154,6 +158,20 @@ class ProfileContainer extends Component {
                   iconStyle={styles.placeIcon}
                   onPress={this.onPressPlace}
                 />
+              </View>
+            </View>
+            <View style={styles.userAddressRow}>
+              <View style={styles.userCityRow}>
+                <Text style={styles.userCityText}>
+                   {Location.Description}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.userAddressRow}>
+              <View style={styles.userCityRow}>
+                <Text style={styles.userCityText}>
+                   {Team.Name}
+                </Text>
               </View>
             </View>
             <View style={styles.userAddressRow}>

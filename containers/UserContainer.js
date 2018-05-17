@@ -53,8 +53,8 @@ class UserContainer extends Component {
       <ScrollView style={styles.scroll}>
         <View style={styles.userRow}>
           <View>
-            <Text style={{ fontSize: 16 }}>
-              {FirstName}
+            <Text style={{ fontSize: 16, fontWeight:'bold'}}>
+              {FirstName} {LastName}
             </Text>
             <Text
               style={{

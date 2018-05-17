@@ -16,14 +16,15 @@ class SearchContainer extends React.Component {
   componentDidMount(){
     this.props.getData()
     this.props.getSkills()
+    this.props.getProfile()
   }
   render(){
-    const { users } = this.props;
+    const { users, cleared, filteredData } = this.props;
     return (
       <View style={styles.container}>
         {/*<SearchHeader data={users} navigation={this.props.navigation}/>*/}
         {this.props.showFilter ? <Button onPress={this.props.clearFilter} title="Clear filter"/> : null}
-        {users ? <SearchList data={users} navigation={this.props.navigation}/> : null}
+        {users ? <SearchList data={users} cleared={cleared} filteredData={filteredData} navigation={this.props.navigation}/> : null}
       </View>
     );
   }
@@ -43,6 +44,8 @@ mapStateToProps = (state, props) => {
   return {
     showFilter: state.dataReducer.showFilter,
     users: state.dataReducer.users,
+    cleared: state.dataReducer.cleared,
+    filteredData: state.dataReducer.filteredData,
   };
 };
 
