@@ -17,6 +17,7 @@ class SearchContainer extends React.Component {
     this.props.getData()
     this.props.getSkills()
     this.props.getProfile()
+    this.props.getUserSkills()
   }
   render(){
     const { users, cleared, filteredData } = this.props;

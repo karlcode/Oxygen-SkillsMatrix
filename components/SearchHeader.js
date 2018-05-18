@@ -28,10 +28,12 @@ class SearchHeader extends React.PureComponent {
       return(
         <View style={styles.container}>
         <View style={{flexDirection: 'row'}}>
-        <Image style={{width: 50, height: 20}}
-          source={require('../assets/DXC_Oxygen.png')}
-        />
-        <Ionicons name={'md-switch'} size={30} style={{ alignSelf: 'flex-end'}} color='#39AAEC' onPress={() => this.props.navigation.navigate({key: 'Filter', routeName: 'Filter'})}/>
+          <View style={{flex: 1}}>
+          <Image  style={{ height: 40, width: 150,}}
+            source={require('../assets/DXC_Oxygen.png')}
+          />
+          </View>
+          <Ionicons name={'md-switch'} size={30} style={{ alignSelf: 'flex-end', paddingRight: 15}} color='#427CAC' onPress={() => this.props.navigation.navigate({key: 'Filter', routeName: 'Filter'})}/>
         </View>
         <SearchBar
           lightTheme
@@ -42,9 +44,13 @@ class SearchHeader extends React.PureComponent {
           onClearText={() => {
             this.props.clearSearch();
           }}
+          showLoading
+          inputStyle={{backgroundColor: '#EFF4F9'}}
+          clearIcon={{ color: '#FF8888' }}
+          platform="android"
           containerStyle={styles.searchBar}
           icon={{ type: 'font-awesome', name: 'search' }}
-          placeholder='Type Here...' />
+          placeholder='Search' />
         </View>
     );
   }
@@ -62,9 +68,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(SearchHeader);
 
 const styles = StyleSheet.create({
   container: {
-    elevation: 10,
+    alignSelf: 'stretch',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    elevation: 1,
     backgroundColor: 'white',
     paddingTop: Platform.OS === "ios" ? 20 : StatusBar.currentHeight,
+    paddingBottom: 5,
   },
   emailItem:{
     borderBottomWidth: 0.5,
@@ -77,13 +87,14 @@ const styles = StyleSheet.create({
   searchBar: {
     backgroundColor: "transparent",
     borderBottomColor: "transparent",
-    borderTopColor: "transparent"
+    borderTopColor: "transparent",
   },
   title: {
     color: 'black',
     fontSize: 30,
     fontWeight: 'bold',
     flex: 1, 
+    
   },
 
 });

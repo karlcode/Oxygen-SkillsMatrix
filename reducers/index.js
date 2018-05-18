@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { FETCHING_DATA, DATA_AVAILABLE, SKILLS_AVAILABLE, PROFILE_AVAILABLE, SEARCH_TERM, CLEAR_SEARCH, SELECT_CONFIRM, SELECT_DELETE, APPLY_FILTER, CLEAR_FILTER, CSRF_TOKEN } from '../actions';
+import { FETCHING_DATA, DATA_AVAILABLE, SKILLS_AVAILABLE, USERSKILLS_AVAILABLE, PROFILE_AVAILABLE, SEARCH_TERM, CLEAR_SEARCH, SELECT_CONFIRM, SELECT_DELETE, APPLY_FILTER, CLEAR_FILTER, CSRF_TOKEN } from '../actions';
 
 import SearchInput, { createFilter } from 'react-native-search-filter'
 
@@ -7,6 +7,7 @@ let initialState = { data: [],
                     skillgroups: [], 
                     filteredData: [], 
                     users: [], 
+                    userSkills: [],
                     backup: [],
                     profile: [],
                     token: '',
@@ -30,6 +31,10 @@ const dataReducer = (state = initialState, action) => {
           state = Object.assign({}, state, { skillgroups: action.skills })
           return state;
         }
+        case USERSKILLS_AVAILABLE:{
+            state = Object.assign({}, state, { userSkills: action.userSkills })
+            return state;
+          }
         case PROFILE_AVAILABLE:{
           state = Object.assign({}, state, { profile: action.profile })
           return state;

@@ -27,26 +27,61 @@ class Options extends React.Component {
     super(props);
     this.state = {
       value: 6,
-      modalVisible: false
+      modalVisible: false, 
+      modalName: '',
+      skillRank: '',
+      rankId: 0
     };
-  }
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
   }
   notesData = this.props.skillgroups.map(key => {
     return { header: key.Name, id: key.Id, data: key.SkillSet.results };
   });
+
+  setModalVisible(visible, name, rank, index) {
+    this.setState({ modalVisible: visible, modalName: name, skillRank: rank, rankId: index });
+  }
+
+  _onFinishRating = (rating) => {
+    this.setState({ rankId: rating });
+  }
+
   _renderItem = ({ item, index, section }) => {
-    if (section.id == item.SkillGroupId) {
+    let found = this.props.userSkills.some(e => e.SkillId === item.Id)
+    let filtered = this.props.userSkills.filter(e => e.SkillId === item.Id)
+    if (section.id == item.SkillGroupId) { //constructing list of categories and respective items
+      if (found && filtered[0]) { 
       return (
         <View>
           <TouchableOpacity>
             <ListItem
-              key={index}
-              title={item.Name}
-              onPress={() => {
-                this.setModalVisible(true);
+              key={item.Id}
+              title={`${item.Name} - ${filtered[0].SkillRank.Name}`}
+              onPress={() => 
+                this.setModalVisible(true, item.Name, filtered[0].SkillRank.Name, filtered[0].SkillRankId)
+                //alert(item.Id + filtered[0].SkillRankId + filtered[0].SkillRank.Name)
+              }
+              containerStyle={{
+                backgroundColor: "#fff",
+                borderBottomWidth: 0,
+                marginLeft: 10,
+                marginRight: 10,
+                marginTop: 2.5,
+                marginBottom: 2.5
               }}
+            />
+          </TouchableOpacity>
+        </View>
+      );
+      }
+      return (
+        <View>
+          <TouchableOpacity>
+            <ListItem
+              key={item.Id}
+              title={item.Name}
+              onPress={() => 
+                this.setModalVisible(true, item.Name, null, null)
+              }
               containerStyle={{
                 backgroundColor: "#fff",
                 borderBottomWidth: 0,
@@ -81,25 +116,9 @@ class Options extends React.Component {
                 {section.header}
               </Text>
             )}
-          />);
-      case 'Team':
-            return null
-      case 'Position':
-            return null      
-      case 'Clearance':
-            return <Text>You do not have permission to edit this field</Text>         
-      case 'Banding':
-            return <Text>You do not have permission to edit this field</Text>          
-      case 'Location':
-            return null      
-      case 'Nationality':
-            return null      
-      case 'Contact Number':
-            return null      
-      case 'Email':
-            return <Text>You do not have permission to edit this field</Text>     
+          />);   
       default: 
-            return <Text>No Data to display</Text>
+            return <Text>You do not have permission to edit this field</Text>  
     }
  }
   render() {
@@ -107,57 +126,57 @@ class Options extends React.Component {
     const { title } = this.props.navigation.state.params;
     return (
       <View style={styles.container}>
-        <Modal
-          isVisible={this.state.modalVisible}
-          backdropColor={"rgba(0,0,0,0.2)"}
-          backdropOpacity={1}
-          onBackdropPress={() => {
-            this.setModalVisible(false);
-          }}
-          animationInTiming={200}
-          animationOutTiming={200}
-          backdropTransitionInTiming={200}
-          backdropTransitionOutTiming={200}
-        >
-          <View style={styles.modalContent}>
-            <Text>Value: {this.state.value}</Text>
-            <View
-              style={{
-                flex: 1,
-                alignItems: "stretch",
-                justifyContent: "center"
-              }}
-            >
-              {/*<Slider
-                value={this.state.value}
-                minimumValue={0}
-                maximumValue={10}
-                step={2}
-                onValueChange={value => this.setState({ value })}
-              />*/}
-              <Rating
-                showRating
-                type="star"
-                fractions={1}
-                startingValue={3.6}
-                readonly
-                imageSize={40}
-                onFinishRating={()=>alert("Done")}
-                style={{ paddingVertical: 10 }}
-              />
-            </View>
-            <Button
-              title="Cancel"
-              color="#16c5cc"
-              buttonStyle={{
-                backgroundColor: "blue"
-              }}
-              onPress={() => {
-                this.setModalVisible(false);
-              }}
-            />
-          </View>
-        </Modal>
+                                            <Modal
+                                              isVisible={this.state.modalVisible}
+                                              backdropColor={"rgba(0,0,0,0.2)"}
+                                              backdropOpacity={1}
+                                              onBackdropPress={() => {
+                                                this.setModalVisible(false);
+                                              }}
+                                              animationInTiming={200}
+                                              animationOutTiming={200}
+                                              backdropTransitionInTiming={200}
+                                              backdropTransitionOutTiming={200}
+                                            >
+                                              <View style={styles.modalContent}>
+                                                <Text>{this.state.modalName}</Text>
+                                                <Text>{this.state.skillRank}</Text>
+                                                <View
+                                                  style={{
+                                                    flex: 1,
+                                                    alignItems: "stretch",
+                                                    justifyContent: "center"
+                                                  }}
+                                                >
+                                                  {/*<Slider
+                                                    value={this.state.value}
+                                                    minimumValue={0}
+                                                    maximumValue={10}
+                                                    step={2}
+                                                    onValueChange={value => this.setState({ value })}
+                                                  />*/}
+                                                  <Rating
+                                                    type="star"
+                                                    ratingCount={4}
+                                                    fractions={0}
+                                                    startingValue={Number(this.state.rankId)}
+                                                    imageSize={40}
+                                                    onFinishRating={this._onFinishRating}
+                                                    style={{ paddingVertical: 10 }}
+                                                  />
+                                                </View>
+                                                <Button
+                                                  title="Cancel"
+                                                  color="#16c5cc"
+                                                  buttonStyle={{
+                                                    backgroundColor: "blue"
+                                                  }}
+                                                  onPress={() => {
+                                                    this.setModalVisible(false);
+                                                  }}
+                                                />
+                                              </View>
+                                            </Modal>
         <View style={styles.modal}>
           <View style={{ flexDirection: "row" }}>
             <View style={{ flex: 1, alignSelf: "center" }}>
@@ -198,7 +217,8 @@ class Options extends React.Component {
 
 mapStateToProps = (state, props) => {
   return {
-    skillgroups: state.dataReducer.skillgroups
+    skillgroups: state.dataReducer.skillgroups,
+    userSkills: state.dataReducer.userSkills
   };
 };
 

@@ -4,6 +4,7 @@ export const APPLY_FILTER = 'APPLY_FILTER';
 export const FETCHING_DATA = 'FETCHING_DATA';
 export const DATA_AVAILABLE = 'DATA_AVAILABLE';
 export const SKILLS_AVAILABLE = 'SKILLS_AVAILABLE';
+export const USERSKILLS_AVAILABLE = 'USERSKILLS_AVAILABLE';
 export const PROFILE_AVAILABLE = 'PROFILE_AVAILABLE';
 export const CLEAR_FILTER = 'CLEAR_FILTER';
 export const CSRF_TOKEN = 'CSRF_TOKEN';
@@ -67,6 +68,26 @@ export function getSkills(){
         })
         .catch(error => {
             alert("Error fetching skill groups " + error)
+            console.log(error)
+        })
+    };
+}
+export function getUserSkills(){
+    return (dispatch) => {
+        let headers = new Headers();
+        headers.append("Authorization", "Basic " + base64.encode("oxygen:Welcome1"))
+        headers.append("X-CSRF-Token", "fetch")
+        let url = 'https://iottruck.oxygendemo.com/sap/opu/odata/sap/ZSKILLS_MATRIX_SRV/EmployeeSkillSet?$format=json&$expand=Skill,SkillRank&$filter=EmployeeId%20eq%20\'3\''
+        fetch(url, {
+            headers: headers,
+            method: 'GET'
+          })
+        .then(res => res.json())
+        .then(json => {
+            dispatch({type: USERSKILLS_AVAILABLE, userSkills: json.d.results});
+        })
+        .catch(error => {
+            alert("Error fetching userSkill groups " + error)
             console.log(error)
         })
     };
