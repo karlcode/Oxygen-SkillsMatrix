@@ -10,6 +10,9 @@ export const CLEAR_FILTER = 'CLEAR_FILTER';
 export const CSRF_TOKEN = 'CSRF_TOKEN';
 export const SEARCH_TERM = 'SEARCH_TERM';
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
+export const UPDATE_SKILL = 'UPDATE_SKILL';
+export const CREATE_SKILL = 'CREATE_SKILL';
+export const DELETE_SKILL = 'DELETE_SKILL';
 
 var base64 = require('base-64');
 
@@ -31,6 +34,7 @@ export function getData(){
         let headers = new Headers();
         headers.append("Authorization", "Basic " + base64.encode("oxygen:Welcome1"))
         headers.append("X-CSRF-Token", "fetch")
+        headers.append("Cache-Control", "no-cache")
         let url = 'https://iottruck.oxygendemo.com/sap/opu/odata/sap/ZSKILLS_MATRIX_SRV/EmployeeSet?$format=json&$expand=EmployeeSkillSet/Skill/SkillGroup,Team,Location,Position'
         fetch(url, {
             headers: headers,
@@ -38,6 +42,7 @@ export function getData(){
           })
         .then(res => {
             const xcsrf = res.headers.get("X-CSRF-Token")
+            console.log(xcsrf + 'THIS IS XCSRF FIRZT GET')
             dispatch({type: CSRF_TOKEN, token: xcsrf});
             return res.json()})
         .then(json => {
@@ -49,7 +54,73 @@ export function getData(){
         })
     };
 }
-
+export function createSkill(skillId, skillRankId, xcsrf){
+    console.log(xcsrf)
+    return (dispatch) => {
+        let headers = new Headers();
+        headers.append("Authorization", "Basic " + base64.encode("oxygen:Welcome1"))
+        headers.append("X-CSRF-Token", xcsrf)
+        headers.append("Content-Type", 'application/json')
+        headers.append("Accept", 'application/json')
+        fetch(`https://iottruck.oxygendemo.com/sap/opu/odata/sap/ZSKILLS_MATRIX_SRV/EmployeeSkillSet`,
+        {
+            headers: headers,
+            method: "POST",
+            body: JSON.stringify({EmployeeId: "3", SkillId: skillId.toString(), SkillRankId: skillRankId.toString(), SkillPriorityId: "1"})
+        })
+        .then(res =>  {dispatch({type: CREATE_SKILL})
+                        console.log(res)
+                        dispatch(getUserSkills());
+                        return res.json()})
+        .then(res =>  console.log(res))
+        .catch(res =>  alert("Something went wrong with create skill"))
+        
+    };
+}
+export function updateSkill(skillId, skillRankId, xcsrf){
+    console.log(xcsrf)
+    return (dispatch) => {
+        let headers = new Headers();
+        headers.append("Authorization", "Basic " + base64.encode("oxygen:Welcome1"))
+        headers.append("X-CSRF-Token", xcsrf)
+        headers.append("Content-Type", 'application/json')
+        headers.append("Accept", 'application/json')
+        fetch(`https://iottruck.oxygendemo.com/sap/opu/odata/sap/ZSKILLS_MATRIX_SRV/EmployeeSkillSet(EmployeeId='3',SkillId='${skillId}')`,
+        {
+            headers: headers,
+            method: "PATCH",
+            body: JSON.stringify({SkillRankId: skillRankId.toString()})
+        })
+        .then(res =>  {dispatch({type: UPDATE_SKILL})
+                        console.log(res)
+                        dispatch(getUserSkills());
+                        return res.json()})
+        .then(res =>  console.log(res))
+        .catch(res =>  alert("Updated skill"))
+        
+    };
+}
+export function deleteSkill(skillId, skillRankId, xcsrf){
+    return (dispatch) => {
+        let headers = new Headers();
+        headers.append("Authorization", "Basic " + base64.encode("oxygen:Welcome1"))
+        headers.append("X-CSRF-Token", xcsrf)
+        headers.append("Content-Type", 'application/json')
+        headers.append("Accept", 'application/json')
+        fetch(`https://iottruck.oxygendemo.com/sap/opu/odata/sap/ZSKILLS_MATRIX_SRV/EmployeeSkillSet(EmployeeId='3',SkillId='${skillId}')`,
+        {
+            headers: headers,
+            method: "DELETE",
+        })
+        .then(res =>  {dispatch({type: DELETE_SKILL})
+                        console.log(res)
+                        dispatch(getUserSkills());
+                        return res.json()})
+        .then(res =>  console.log(res))
+        .catch(res =>  alert("Deleted Skill"))
+        
+    };
+}
 export function getSkills(){
     return (dispatch) => {
         //dispatch({type: FETCHING_DATA});
@@ -84,6 +155,7 @@ export function getUserSkills(){
           })
         .then(res => res.json())
         .then(json => {
+            console.log("Getting User Skills")
             dispatch({type: USERSKILLS_AVAILABLE, userSkills: json.d.results});
         })
         .catch(error => {
