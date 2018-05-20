@@ -34,7 +34,8 @@ export function getData(){
         let headers = new Headers();
         headers.append("Authorization", "Basic " + base64.encode("oxygen:Welcome1"))
         headers.append("X-CSRF-Token", "fetch")
-        headers.append("Cache-Control", "no-cache")
+        headers.append("Cache-Control", "no-cache, no-store")
+        headers.append("pragma", "no-cache")
         let url = 'https://iottruck.oxygendemo.com/sap/opu/odata/sap/ZSKILLS_MATRIX_SRV/EmployeeSet?$format=json&$expand=EmployeeSkillSet/Skill/SkillGroup,Team,Location,Position'
         fetch(url, {
             headers: headers,
@@ -127,6 +128,8 @@ export function getSkills(){
         let headers = new Headers();
         headers.append("Authorization", "Basic " + base64.encode("oxygen:Welcome1"))
         headers.append("X-CSRF-Token", "fetch")
+        headers.append("Cache-Control", "no-cache, no-store")
+        headers.append("pragma", "no-cache")
         let url = 'https://iottruck.oxygendemo.com/sap/opu/odata/sap/ZSKILLS_MATRIX_SRV/SkillGroupSet?$format=json&$expand=SkillSet/EmployeeSkillSet/SkillRank'
         fetch(url, {
             headers: headers,
@@ -148,6 +151,9 @@ export function getUserSkills(){
         let headers = new Headers();
         headers.append("Authorization", "Basic " + base64.encode("oxygen:Welcome1"))
         headers.append("X-CSRF-Token", "fetch")
+        //headers.append("Cache-Control", "no-cache, no-store")
+        headers.append("Cache-Control", "no-cache")
+        headers.append("pragma", "no-cache")
         let url = 'https://iottruck.oxygendemo.com/sap/opu/odata/sap/ZSKILLS_MATRIX_SRV/EmployeeSkillSet?$format=json&$expand=Skill,SkillRank&$filter=EmployeeId%20eq%20\'3\''
         fetch(url, {
             headers: headers,
@@ -170,6 +176,8 @@ export function getProfile(){
         let headers = new Headers();
         headers.append("Authorization", "Basic " + base64.encode("oxygen:Welcome1"))
         headers.append("X-CSRF-Token", "fetch")
+        headers.append("Cache-Control", "no-cache, no-store")
+        headers.append("pragma", "no-cache")
         let url = 'https://iottruck.oxygendemo.com/sap/opu/odata/sap/ZSKILLS_MATRIX_SRV/EmployeeSet(\'3\')?$format=json&$expand=Team%2cPosition%2cLocation%2cEmployeeSkillSet%2cEmployeeSkillSet%2fSkillPriority%2cEmployeeSkillSet%2fSkill%2cEmployeeSkillSet%2fSkill%2fSkillGroup%2fSkillSet'
         fetch(url, {
             headers: headers,

@@ -15,7 +15,7 @@ import MultiSelect from "../components/MultiSelect";
 import OptionsContainer from "../containers/OptionsContainer";
 import { Button, ButtonGroup } from "react-native-elements";
 import { Select, Option } from "react-native-select-lists";
-import { Avatar, ListItem, Slider, Rating } from "react-native-elements";
+import { Avatar, ListItem, Slider, Rating, Icon} from "react-native-elements";
 import Modal from "react-native-modal";
 
 import StarRating from 'react-native-star-rating';
@@ -132,7 +132,7 @@ class Options extends React.Component {
       <View style={styles.container}>
                                             <Modal
                                               isVisible={this.state.modalVisible}
-                                              backdropColor={"rgba(0,0,0,0.2)"}
+                                              backdropColor={"rgba(0,0,0,0.5)"}
                                               backdropOpacity={1}
                                               onBackdropPress={() => {
                                                 this.setModalVisible(false);
@@ -148,13 +148,10 @@ class Options extends React.Component {
                                                   <Text>{this.state.modalName}</Text>
                                                   
                                                   </View>
-                                                  <Button
-                                                    title="Cancel"
-                                                    color="#16c5cc"
-                                                    buttonStyle={{
-                                                      backgroundColor: "transparent",
-                                                      alignSelf: 'flex-start'
-                                                    }}
+                                                  <Icon
+                                                    name='remove'
+                                                    type='font-awesome'
+                                                    color='#f50'
                                                     onPress={() => {
                                                       this.setModalVisible(false);
                                                     }}
@@ -171,46 +168,46 @@ class Options extends React.Component {
                                                   <StarRating
                                                     disabled={false}
                                                     maxStars={4}
+                                                    emptyStarColor="#91C8F6"
+                                                    fullStarColor="#427CAC"
                                                     rating={Math.round(this.state.rankId)}
                                                     selectedStar={this._onFinishRating}
                                                   />
-                                                  {/*<Rating
-                                                    showRating
-                                                    type="star"
-                                                    ratingCount={4}
-                                                    fractions={0}
-                                                    startingValue={Math.round(this.state.rankId)}
-                                                    imageSize={80}
-                                                    onFinishRating={this._onFinishRating}
-                                                    style={{ paddingVertical: 40 }}
-                                                  />*/}
+                                                  
                                                 </View>
-                                           
-                                                <Button
-                                                  title="Submit"
-                                                  color="#fff"
-                                                  buttonStyle={{
-                                                    backgroundColor: "#ABE2AB"
-                                                  }}
-                                                  onPress={this.state.isUpdate ? (() => {
-                                                    this.setModalVisible(false)
-                                                    this.props.updateSkill( this.state.skillId, this.state.rankId , this.props.token)
-                                                  }) : (() => {
-                                                    this.setModalVisible(false)
-                                                    this.props.createSkill( this.state.skillId, this.state.rankId , this.props.token)
-                                                  })}
-                                                />
-                                                <Button
-                                                  title="Delete"
-                                                  color="#fff"
-                                                  buttonStyle={{
-                                                    backgroundColor: "#FF8888"
-                                                  }}
-                                                  onPress={() => {
-                                                    this.setModalVisible(false)
-                                                    this.props.deleteSkill( this.state.skillId, this.state.rankId , this.props.token)
-                                                  }}
-                                                />
+                                                <View style={{ flexDirection: "row", justifyContent: 'space-between', alignItems: 'center' }}>
+                                                  <View style={{ flex: 1}}>
+                                                    <Button
+                                                      title="Delete"
+                                                      color="#fff"
+                                                      buttonStyle={{
+                                                        backgroundColor: "#FF8888",
+                                                        width: '100%',
+                                                      }}
+                                                      onPress={() => {
+                                                        this.setModalVisible(false)
+                                                        this.props.deleteSkill( this.state.skillId, this.state.rankId , this.props.token)
+                                                      }}
+                                                    />
+                                                  </View>
+                                                  <View style={{ flex: 1}}>
+                                                  <Button
+                                                    title="Submit"
+                                                    color="#fff"
+                                                    buttonStyle={{
+                                                      backgroundColor: "#ABE2AB",
+                                                      width: '100%',
+                                                    }}
+                                                    onPress={this.state.isUpdate ? (() => {
+                                                      this.setModalVisible(false)
+                                                      this.props.updateSkill( this.state.skillId, this.state.rankId , this.props.token)
+                                                    }) : (() => {
+                                                      this.setModalVisible(false)
+                                                      this.props.createSkill( this.state.skillId, this.state.rankId , this.props.token)
+                                                    })}
+                                                  />
+                                                  </View>
+                                                </View>
                                               </View>
                                             </Modal>
         <View style={styles.modal}>

@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     elevation: 1,
     backgroundColor: 'white',
-    paddingTop: Platform.OS === "ios" ? 20 : StatusBar.currentHeight,
+    paddingTop: Platform.OS === "ios" ? 20 : StatusBar.currentHeight + 5,
     paddingBottom: 5,
   },
   emailItem:{

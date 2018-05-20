@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Icon } from 'react-native-elements'
+import { Card, Icon, ListItem, Rating } from 'react-native-elements'
 import {
   Image,
   ImageBackground,
@@ -10,12 +10,14 @@ import {
   StyleSheet,
   Text,
   View,
+  SectionList
 } from 'react-native'
 import PropTypes from 'prop-types'
 
 import Email from '../components/Email'
 import Separator from '../components/Separator'
 import Tel from '../components/Tel'
+
 
 const styles = StyleSheet.create({
   cardContainer: {
@@ -27,11 +29,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-  },
-  emailContainer: {
-    backgroundColor: '#FFF',
-    flex: 1,
-    paddingTop: 30,
   },
   headerBackgroundImage: {
     paddingBottom: 20,
@@ -47,21 +44,17 @@ const styles = StyleSheet.create({
         marginTop: -1,
       },
       android: {
-        alignItems: 'center',
+        alignItems: 'flex-start',
+        padding: 30,
       },
     }),
   },
   placeIcon: {
-    color: 'white',
+    color: 'black',
     fontSize: 26,
   },
   scroll: {
     backgroundColor: '#FFF',
-  },
-  telContainer: {
-    backgroundColor: '#FFF',
-    flex: 1,
-    paddingTop: 30,
   },
   userAddressRow: {
     alignItems: 'center',
@@ -71,7 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   userCityText: {
-    color: '#A5A5A5',
+    color: '#000',
     fontSize: 15,
     fontWeight: '600',
     textAlign: 'center',
@@ -94,37 +87,12 @@ const styles = StyleSheet.create({
 })
 
 class ProfileContainer extends Component {
-  static propTypes = {
-    //avatar: PropTypes.string.isRequired,
-    //avatarBackground: PropTypes.string.isRequired,
-    FirstName: PropTypes.string.isRequired,
-    /*address: PropTypes.shape({
-      city: PropTypes.string.isRequired,
-      country: PropTypes.string.isRequired,
-    }).isRequired,
-    emails: PropTypes.arrayOf(
-      PropTypes.shape({
-        email: PropTypes.string.isRequired,
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-      })
-    ).isRequired,
-    tels: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        number: PropTypes.string.isRequired,
-      })
-    ).isRequired,*/
-  }
-
+  
   renderHeader = () => {
     const {
       Clearance,
-      Email,
       FirstName,
       LastName,
-      Phone,
       Nationality,
       Security,
       Location,
@@ -133,15 +101,10 @@ class ProfileContainer extends Component {
       Banding
     } = this.props
 
+    
     return (
       <View style={styles.headerContainer}>
-        <ImageBackground
-          style={styles.headerBackgroundImage}
-          blurRadius={10}
-          source={{
-            uri: 'https://orig00.deviantart.net/dcd7/f/2014/027/2/0/mountain_background_by_pukahuna-d73zlo5.png',
-          }}
-        >
+        
           <View style={styles.headerColumn}>
             <Image
               style={styles.userImage}
@@ -159,46 +122,36 @@ class ProfileContainer extends Component {
                   onPress={this.onPressPlace}
                 />
               </View>
-            </View>
-            <View style={styles.userAddressRow}>
-              <View style={styles.userCityRow}>
-                <Text style={styles.userCityText}>
+              <Text style={styles.userCityText}>
                    {Location.Description}
                 </Text>
-              </View>
             </View>
             <View style={styles.userAddressRow}>
               <View style={styles.userCityRow}>
                 <Text style={styles.userCityText}>
-                   {Team.Name}
+                   Team: {Team.Name}
                 </Text>
               </View>
             </View>
             <View style={styles.userAddressRow}>
               <View style={styles.userCityRow}>
                 <Text style={styles.userCityText}>
-                   {Position.Name}
+                   Position: {Position.Name}
+                </Text>
+              </View>
+            </View>
+            
+            <View style={styles.userAddressRow}>
+              <View style={styles.userCityRow}>
+                <Text style={styles.userCityText}>
+                   Nationality: {Nationality}
                 </Text>
               </View>
             </View>
             <View style={styles.userAddressRow}>
               <View style={styles.userCityRow}>
                 <Text style={styles.userCityText}>
-                   {Phone}
-                </Text>
-              </View>
-            </View>
-            <View style={styles.userAddressRow}>
-              <View style={styles.userCityRow}>
-                <Text style={styles.userCityText}>
-                   {Nationality}
-                </Text>
-              </View>
-            </View>
-            <View style={styles.userAddressRow}>
-              <View style={styles.userCityRow}>
-                <Text style={styles.userCityText}>
-                   {Clearance}
+                   Security Clearance: {Clearance}
                 </Text>
               </View>
             </View>
@@ -209,20 +162,117 @@ class ProfileContainer extends Component {
                 </Text>
               </View>
             </View>
+            
           </View>
-        </ImageBackground>
       </View>
     )
   }
 
+  notesData = this.props.EmployeeSkillSet.results.map(key => {
+    return { header: key.Skill.SkillGroup.Name, id: key.SkillId, data: key.Skill };
+  });
+  _renderItem = ({ item, index, section }) => {
+      return (
+        <View>
+          <TouchableOpacity>
+            <ListItem
+              key={item.Id}
+              title={"HI"}
+              
+              containerStyle={{
+                backgroundColor: "#fff",
+                borderBottomWidth: 0,
+                marginLeft: 10,
+                marginRight: 10,
+                marginTop: 2.5,
+                marginBottom: 2.5
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+      );
+    }
+  _rightTitle = (rank) => {
+    switch (rank){
+      case "1": 
+        return (
+          <Text>Beginner</Text>
+        );
+      case "2": 
+        return (
+          <Text>Intermediate</Text>
+        );
+      case "3": 
+        return (
+          <Text>Experienced</Text>
+        );
+      case "4": 
+        return (
+          <Text>Expert</Text>
+        );
+      default: 
+        return null
+      }
+    }
   render() {
+    const { Phone, Email } = this.props;
     return (
       <ScrollView style={styles.scroll}>
         <View style={styles.container}>
           <Card containerStyle={styles.cardContainer}>
             {this.renderHeader()}
             {Separator()}
+            <View style={{padding: 30}}>
+              <View style={styles.userAddressRow}>
+                <View style={styles.userCityRow}>
+                  <Text style={styles.userCityText}>
+                    Phone: {Phone}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.userAddressRow}>
+                <View style={styles.userCityRow}>
+                  <Text style={styles.userCityText}>
+                    Email: {Email}
+                  </Text>
+                </View>
+              </View>
+            </View>
             {Separator()}
+            { this.props.EmployeeSkillSet.results[0] ? 
+              <View style={{padding: 20}}>
+              {
+                this.props.EmployeeSkillSet.results.map((u, i) => {
+                  return (
+                    <ListItem
+                      key={i}
+                      containerStyle={{ borderBottomColor: '#EDEDED' }}
+                      titleNumberOfLines={2}
+                      title={u.Skill.Name}
+                      hideChevron
+                      subtitle={<View style={{paddingLeft: 10}}>
+                                {this._rightTitle(u.SkillRankId)}
+                                <Rating
+                                  type="star"
+                                  style={{paddingVertical: 5}}
+                                  fractions={0}
+                                  ratingCount={4}
+                                  startingValue={Math.round(u.SkillRankId)}
+                                  readonly
+                                  imageSize={10}
+                                /></View>}
+                    />
+                  );
+                })
+              }
+              </View>
+              :
+              <View style={{padding: 20}}>
+                <Text>User has not added any skills yet!</Text>
+              </View>
+            }
+
+            
           </Card>
         </View>
       </ScrollView>
