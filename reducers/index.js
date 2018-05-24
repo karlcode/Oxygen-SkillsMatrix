@@ -14,13 +14,13 @@ let initialState = { data: [],
                     cleared: true,
                     isFetching: true,
                     showFilter: false,
-                    
+                    refreshing: false
                 };  
 
 const dataReducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCHING_DATA:{
-            state = Object.assign({}, state);
+            state = Object.assign({}, state, {refreshing: true});
             return state;
         }
         case DATA_AVAILABLE:{
@@ -55,7 +55,7 @@ const dataReducer = (state = initialState, action) => {
           return state;
         }
         case SEARCH_TERM:{
-            const filtered = state.users.filter(createFilter(action.searchterm, ['FirstName', 'LastName', 'Phone', 'Nationality', 'Position.Name', 'Team.Name', 'Location.Description','Location.Code' ]))
+            const filtered = state.users.filter(createFilter(action.searchterm, ['FirstName', 'LastName', 'Phone', 'Nationality', 'Position.Name', 'Team.Name', 'Location.Description','Location.Code', 'EmployeeSkillSet.results.Skill.Name' ]))
             state = Object.assign({}, state, { filteredData: filtered, cleared: false });
             return state;
         }

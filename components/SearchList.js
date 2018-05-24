@@ -14,6 +14,9 @@ class SearchList extends React.Component {
   _renderItem = ({ item }) => {
     return <ListRow item={item} navigation={this.props.navigation}/>;
   }
+  handleRefresh = () => {
+    this.props.getData();
+  };
   render(){
     return (
       <View style={styles.container}>
@@ -26,9 +29,9 @@ class SearchList extends React.Component {
         keyExtractor={(item, index) => item.Id}
         //ListEmptyComponent={this.noItemDisplay}
         //ItemSeparatorComponent={this.renderSeparator}
-        //onRefresh={this.handleRefresh}
+        onRefresh={this.handleRefresh}
         removeClippedSubviews={false}
-        //refreshing={this.props.refreshing}
+        refreshing={this.props.refreshing}
         initialNumToRender={10}
         maxToRenderPerBatch={10}
       />: null }
@@ -55,6 +58,7 @@ mapStateToProps = (state, props) => {
     users: state.dataReducer.users,
     cleared: state.dataReducer.cleared,
     filteredData: state.dataReducer.filteredData,
+    refreshing: state.dataReducer.refreshing
   };
 };
 

@@ -123,14 +123,14 @@ class ProfileContainer extends Component {
             <View style={styles.userAddressRow}>
               <View style={styles.userCityRow}>
                 <Text style={styles.userCityText}>
-                   Team: {Team.Name}
+                   <Text style={{fontWeight:'bold'}}>Team:</Text> {Team.Name}
                 </Text>
               </View>
             </View>
             <View style={styles.userAddressRow}>
               <View style={styles.userCityRow}>
                 <Text style={styles.userCityText}>
-                   Position: {Position.Name}
+                    <Text style={{fontWeight:'bold'}}>Position:</Text> {Position.Name}
                 </Text>
               </View>
             </View>
@@ -138,14 +138,14 @@ class ProfileContainer extends Component {
             <View style={styles.userAddressRow}>
               <View style={styles.userCityRow}>
                 <Text style={styles.userCityText}>
-                   Nationality: {Nationality}
+                    <Text style={{fontWeight:'bold'}}>Nationality:</Text> {Nationality}
                 </Text>
               </View>
             </View>
             <View style={styles.userAddressRow}>
               <View style={styles.userCityRow}>
                 <Text style={styles.userCityText}>
-                   Security Clearance: {Clearance}
+                    <Text style={{fontWeight:'bold'}}>Clearance:</Text> {Clearance}
                 </Text>
               </View>
             </View>
