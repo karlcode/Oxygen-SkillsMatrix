@@ -55,7 +55,7 @@ const dataReducer = (state = initialState, action) => {
           return state;
         }
         case SEARCH_TERM:{
-            const filtered = state.users.filter(createFilter(action.searchterm, ['FirstName', 'LastName', 'Phone', 'Nationality', 'Position.Name', 'Team.Name', 'Location.Description' ]))
+            const filtered = state.users.filter(createFilter(action.searchterm, ['FirstName', 'LastName', 'Phone', 'Nationality', 'Position.Name', 'Team.Name', 'Location.Description','Location.Code' ]))
             state = Object.assign({}, state, { filteredData: filtered, cleared: false });
             return state;
         }

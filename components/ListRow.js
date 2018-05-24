@@ -36,7 +36,7 @@ const ListRow = (props) => {
           
           elevation: 2,
           backgroundColor:'rgb(255,255,255)', }}*/
-        containerStyle={{ backgroundColor: '#EFF4F9',borderBottomWidth: 0, marginLeft: 10, marginRight: 10, marginTop:5, marginBottom:5,  }}
+        containerStyle={{ backgroundColor: '#fff',borderBottomWidth: 0, marginLeft: 10, marginRight: 10, marginTop:5, marginBottom:5,  }}
         />
     </View>
     </TouchableOpacity>

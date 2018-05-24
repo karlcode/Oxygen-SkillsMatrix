@@ -43,11 +43,11 @@ const Navigation = TabNavigator(
     tabBarComponent: TabBarBottom,
     tabBarOptions: {
       showLabel: false,
-      activeTintColor: '#91C8F6',                               
-      inactiveTintColor: 'grey',
+      activeTintColor: '#0ed6bd',                               
+      inactiveTintColor: 'white',
       style: {
         elevation: 0,
-        backgroundColor: 'white',
+        backgroundColor: '#445E75',
         borderTopColor: "grey"
       },
     },

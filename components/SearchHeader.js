@@ -28,12 +28,12 @@ class SearchHeader extends React.PureComponent {
       return(
         <View style={styles.container}>
         <View style={{flexDirection: 'row'}}>
-          <View style={{flex: 1}}>
-          <Image  style={{ height: 40, width: 150,}}
-            source={require('../assets/DXC_Oxygen.png')}
+          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <Image  style={{ height: 30, width: 180,}}
+            source={require('../assets/dxc.png')}
           />
           </View>
-          <Ionicons name={'md-switch'} size={30} style={{ alignSelf: 'flex-end', paddingRight: 15}} color='#427CAC' onPress={() => this.props.navigation.navigate({key: 'Filter', routeName: 'Filter'})}/>
+          {/*<Ionicons name={'md-switch'} size={30} style={{ alignSelf: 'flex-end', paddingRight: 15}} color='transparent' onPress={() => this.props.navigation.navigate({key: 'Filter', routeName: 'Filter'})}/>*/}
         </View>
         <SearchBar
           lightTheme
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     elevation: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#445E75',
     paddingTop: Platform.OS === "ios" ? 20 : StatusBar.currentHeight + 5,
     paddingBottom: 5,
   },

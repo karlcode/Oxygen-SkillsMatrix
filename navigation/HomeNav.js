@@ -24,9 +24,12 @@ const HomeNav = StackNavigator({
     screen: Profile,
     navigationOptions: ({navigation}) => ({
         tabBarVisible: true, //godlike line
-        //headerTintColor: 'white',
+        headerTintColor: '#FFF',
         headerTitleStyle: { textAlign: 'center', alignSelf: 'center', flex:1 },
         title: `Profile`,
+        headerStyle: {
+          backgroundColor: '#445E75',
+        },
         headerRight: (<View />)
       }),
   },

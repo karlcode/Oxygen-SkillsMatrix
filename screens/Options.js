@@ -9,7 +9,7 @@ import {
   SectionList,
   Platform,
   StatusBar,
-  TouchableOpacity
+  TouchableHighlight
 } from "react-native";
 import MultiSelect from "../components/MultiSelect";
 import OptionsContainer from "../containers/OptionsContainer";
@@ -56,16 +56,19 @@ class Options extends React.Component {
       if (found && filtered[0]) { 
       return (
         <View>
-          <TouchableOpacity>
+          <TouchableHighlight>
             <ListItem
               key={item.Id}
-              title={`${item.Name} - ${filtered[0].SkillRank.Name}`}
+              title={item.Name}
+              titleStyle={{color: 'white'}}
+              subtitle={filtered[0].SkillRank.Name}
+              subtitleStyle={{color: '#dbdbdb'}}
               onPress={() => 
                 this.setModalVisible(true, item.Name, filtered[0].SkillRank.Name, filtered[0].SkillRankId, item.Id, found)
                 //alert(item.Id + filtered[0].SkillRankId + filtered[0].SkillRank.Name)
               }
               containerStyle={{
-                backgroundColor: "#fff",
+                backgroundColor: "#445E75",
                 borderBottomWidth: 0,
                 marginLeft: 10,
                 marginRight: 10,
@@ -73,13 +76,13 @@ class Options extends React.Component {
                 marginBottom: 2.5
               }}
             />
-          </TouchableOpacity>
+          </TouchableHighlight>
         </View>
       );
       }
       return (
         <View>
-          <TouchableOpacity>
+          <TouchableHighlight>
             <ListItem
               key={item.Id}
               title={item.Name}
@@ -95,7 +98,7 @@ class Options extends React.Component {
                 marginBottom: 2.5
               }}
             />
-          </TouchableOpacity>
+          </TouchableHighlight>
         </View>
       );
     }
@@ -273,9 +276,9 @@ const styles = StyleSheet.create({
     //paddingTop: 6
   },
   modal: {
-    height: "80%",
+    height: "85%",
     width: "100%",
-    backgroundColor: "#EFF4F9",
+    backgroundColor: "#DEF0F2",
     paddingLeft: 15,
     paddingRight: 15,
     paddingTop: 6

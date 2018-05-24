@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
     paddingBottom: 12,
-    backgroundColor: '#F4F5F4',
+    backgroundColor: '#DEF0F2',
   },
   infoText: {
     fontSize: 16,

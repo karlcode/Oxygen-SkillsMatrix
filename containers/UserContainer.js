@@ -53,12 +53,12 @@ class UserContainer extends Component {
       <ScrollView style={styles.scroll}>
         <View style={styles.userRow}>
           <View>
-            <Text style={{ fontSize: 16, fontWeight:'bold'}}>
+            <Text style={{ fontSize: 20, fontWeight:'bold', color:'white'}}>
               {FirstName} {LastName}
             </Text>
             <Text
               style={{
-                color: "gray",
+                color: "white",
                 fontSize: 16
               }}
             >
@@ -230,7 +230,7 @@ class UserContainer extends Component {
 }
 const styles = StyleSheet.create({
   scroll: {
-    backgroundColor: "white",
+    backgroundColor: "#445E75",
     marginTop: Platform.OS === "ios" ? 20 : StatusBar.currentHeight
   },
   userRow: {

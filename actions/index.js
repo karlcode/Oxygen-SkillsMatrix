@@ -34,7 +34,7 @@ export function getData(){
         let headers = new Headers();
         headers.append("Authorization", "Basic " + base64.encode("oxygen:Welcome1"))
         headers.append("X-CSRF-Token", "fetch")
-        headers.append("Cache-Control", "no-cache, no-store")
+        headers.append("Cache-Control", "no-cache")
         headers.append("pragma", "no-cache")
         let url = 'https://iottruck.oxygendemo.com/sap/opu/odata/sap/ZSKILLS_MATRIX_SRV/EmployeeSet?$format=json&$expand=EmployeeSkillSet/Skill/SkillGroup,Team,Location,Position'
         fetch(url, {
@@ -97,7 +97,7 @@ export function updateSkill(skillId, skillRankId, xcsrf){
                         dispatch(getUserSkills());
                         return res.json()})
         .then(res =>  console.log(res))
-        .catch(res =>  alert("Updated skill"))
+        .catch(res =>  console.log(res))
         
     };
 }
@@ -128,7 +128,7 @@ export function getSkills(){
         let headers = new Headers();
         headers.append("Authorization", "Basic " + base64.encode("oxygen:Welcome1"))
         headers.append("X-CSRF-Token", "fetch")
-        headers.append("Cache-Control", "no-cache, no-store")
+        headers.append("Cache-Control", "no-cache")
         headers.append("pragma", "no-cache")
         let url = 'https://iottruck.oxygendemo.com/sap/opu/odata/sap/ZSKILLS_MATRIX_SRV/SkillGroupSet?$format=json&$expand=SkillSet/EmployeeSkillSet/SkillRank'
         fetch(url, {

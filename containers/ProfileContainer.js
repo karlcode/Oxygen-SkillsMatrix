@@ -21,7 +21,7 @@ import Tel from '../components/Tel'
 
 const styles = StyleSheet.create({
   cardContainer: {
-    backgroundColor: '#FFF',
+    backgroundColor: '#DEF0F2',
     borderWidth: 0,
     flex: 1,
     margin: 0,
@@ -34,9 +34,10 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     paddingTop: 35,
   },
-  headerContainer: {},
+  headerContainer: {
+    backgroundColor: '#DEF0F2'
+  },
   headerColumn: {
-    backgroundColor: 'transparent',
     ...Platform.select({
       ios: {
         alignItems: 'center',
@@ -45,16 +46,17 @@ const styles = StyleSheet.create({
       },
       android: {
         alignItems: 'flex-start',
-        padding: 30,
+        paddingHorizontal: 30,
+        paddingTop: 30,
       },
     }),
   },
   placeIcon: {
-    color: 'black',
-    fontSize: 26,
+    color: '#BB0000',
+    fontSize: 20,
   },
   scroll: {
-    backgroundColor: '#FFF',
+    backgroundColor: '#DEF0F2',
   },
   userAddressRow: {
     alignItems: 'center',
@@ -66,8 +68,7 @@ const styles = StyleSheet.create({
   userCityText: {
     color: '#000',
     fontSize: 15,
-    fontWeight: '600',
-    textAlign: 'center',
+    alignSelf: 'center',
   },
   userImage: {
     borderColor: '#01C89E',
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
   },
   userNameText: {
     color: '#000',
-    fontSize: 22,
+    fontSize: 26,
     fontWeight: 'bold',
     paddingBottom: 8,
     textAlign: 'center',
@@ -98,6 +99,7 @@ class ProfileContainer extends Component {
       Location,
       Position,
       Team,
+      Phone,
       Banding
     } = this.props
 
@@ -106,25 +108,17 @@ class ProfileContainer extends Component {
       <View style={styles.headerContainer}>
         
           <View style={styles.headerColumn}>
-            <Image
-              style={styles.userImage}
-              //source={{
-                //uri: avatar,
-              //}}
-            />
-            <Text style={styles.userNameText}>{FirstName} {LastName}</Text>
-            <View style={styles.userAddressRow}>
-              <View>
-                <Icon
-                  name="place"
-                  underlayColor="transparent"
-                  iconStyle={styles.placeIcon}
-                  onPress={this.onPressPlace}
-                />
-              </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.userNameText}>{FirstName} {LastName}  </Text>
+              <Icon
+                name="place"
+                underlayColor="transparent"
+                iconStyle={styles.placeIcon}
+                onPress={this.onPressPlace}
+              />
               <Text style={styles.userCityText}>
                    {Location.Description}
-                </Text>
+              </Text>
             </View>
             <View style={styles.userAddressRow}>
               <View style={styles.userCityRow}>
@@ -178,7 +172,6 @@ class ProfileContainer extends Component {
             <ListItem
               key={item.Id}
               title={"HI"}
-              
               containerStyle={{
                 backgroundColor: "#fff",
                 borderBottomWidth: 0,
@@ -222,22 +215,28 @@ class ProfileContainer extends Component {
           <Card containerStyle={styles.cardContainer}>
             {this.renderHeader()}
             {Separator()}
-            <View style={{padding: 30}}>
-              <View style={styles.userAddressRow}>
-                <View style={styles.userCityRow}>
-                  <Text style={styles.userCityText}>
-                    Phone: {Phone}
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.userAddressRow}>
-                <View style={styles.userCityRow}>
-                  <Text style={styles.userCityText}>
-                    Email: {Email}
-                  </Text>
-                </View>
-              </View>
+            <View style={{padding: 20}}>
+              <ListItem
+                        containerStyle={{ backgroundColor: "#FFF", borderBottomColor: 'transparent' }}
+                        title={Phone}
+                        rightIcon={<Icon
+                          name='phone'
+                          color='#00aced' />
+                        }
+                        subtitle={"Phone"}
+              />
+              
+              <ListItem
+                        containerStyle={{ backgroundColor: "#FFF", borderBottomColor: 'transparent' }}
+                        title={Email}
+                        rightIcon={<Icon
+                          name='markunread'
+                          color='#FABD64' />
+                        }
+                        subtitle={"E-mail"}
+              />
             </View>
+            
             {Separator()}
             { this.props.EmployeeSkillSet.results[0] ? 
               <View style={{padding: 20}}>
@@ -246,12 +245,14 @@ class ProfileContainer extends Component {
                   return (
                     <ListItem
                       key={i}
-                      containerStyle={{ borderBottomColor: '#EDEDED' }}
+                      containerStyle={{ backgroundColor: "#FFF",borderBottomColor: '#EDEDED' }}
                       titleNumberOfLines={2}
                       title={u.Skill.Name}
-                      hideChevron
-                      subtitle={<View style={{paddingLeft: 10}}>
-                                {this._rightTitle(u.SkillRankId)}
+                      
+                      
+                      subtitle={u.Skill.SkillGroup.Name}
+                      rightIcon={<View style={{alignItems: 'flex-end'}}>
+                                
                                 <Rating
                                   type="star"
                                   style={{paddingVertical: 5}}
@@ -259,8 +260,9 @@ class ProfileContainer extends Component {
                                   ratingCount={4}
                                   startingValue={Math.round(u.SkillRankId)}
                                   readonly
-                                  imageSize={10}
-                                /></View>}
+                                  imageSize={20}
+                                />{/*{this._rightTitle(u.SkillRankId)}*/}
+                                </View>}
                     />
                   );
                 })
